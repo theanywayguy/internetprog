@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İnternet Programlama Sınavı - Örnek Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+      }
+      #container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      #question-container {
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeIn 0.5s forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .option {
+        margin: 10px 0;
+        padding: 10px;
+        background: #ecf0f1;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+      .option:hover {
+        background: #dfe6e9;
+      }
+      #result,
+      #explanation {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+        animation: slideIn 0.5s forwards;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      #result.correct {
+        background: #d4edda;
+        color: #155724;
+      }
+      #result.wrong {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      #explanation {
+        background: #f1f1f1;
+        color: #555;
+      }
+      button,
+      select {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      button:hover,
+      select:hover {
+        background: #2980b9;
+      }
+      button:disabled {
+        background: #bdc3c7;
+        cursor: not-allowed;
+      }
+      #score-table,
+      #tracking-table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #score-table th,
+      #tracking-table th,
+      #score-table td,
+      #tracking-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      #tracking-table {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .correct {
+        background: #d4edda;
+      }
+      .wrong {
+        background: #f8d7da;
+      }
+      .unattempted {
+        background: #fff3cd;
+      }
+      #final-score {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>İnternet Programlama Sınavı - Örnek Test</h1>
+    <div id="container">
+      <select id="model-select" onchange="changeModel()">
+        <option value="A">Model A</option>
+        <option value="B">Model B</option>
+        <option value="C">Model C</option>
+      </select>
+      <div id="question-container"></div>
+      <div id="result"></div>
+      <div id="explanation"></div>
+      <div>
+        <button id="prev-btn" onclick="prevQuestion()">Önceki Soru</button>
+        <button id="submit-btn" onclick="submitAnswer()">Cevabı Gönder</button>
+        <button id="next-btn" onclick="nextQuestion()">Sonraki Soru</button>
+        <button id="reset-btn" onclick="resetQuiz()">Sıfırla</button>
+      </div>
+      <table id="score-table">
+        <tr>
+          <th>Doğru Sayısı</th>
+          <th>Yanlış Sayısı</th>
+          <th>Toplam Deneme</th>
+        </tr>
+        <tr>
+          <td id="correct-count">0</td>
+          <td id="wrong-count">0</td>
+          <td id="attempted-count">0</td>
+        </tr>
+      </table>
+      <table id="tracking-table">
+        <thead>
+          <tr>
+            <th>Soru No</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody id="tracking-body"></tbody>
+      </table>
+    </div>
+    <div id="final-score">
+      <h2>Sınav Bitti!</h2>
+      <p id="final-score-text"></p>
+      <button
+        onclick="document.getElementById('final-score').style.display='none'"
+      >
+        Kapat
+      </button>
+    </div>
+
+    <script>
+      const modelA = [
+        {
+          question:
+            'Bir kullanıcı tarayıcısına "www.example.com" yazar ve tarayıcı, sayfayı istemeden önce alanı bir IP adresine çözer. TCP/IP yığınında bu alan adı çözümlemesinden öncelikle hangi katman sorumludur?',
+          options: [
+            "A) Uygulama Katmanı",
+            "B) Taşıma Katmanı",
+            "C) İnternet Katmanı",
+            "D) Ağ Arayüzü Katmanı",
+            "E) Fiziksel Katman",
+          ],
+          correct: "A) Uygulama Katmanı",
+          explanation:
+            "DNS çözümlemesi, alan adlarını IP adreslerine çeviren DNS gibi protokollerin çalıştığı Uygulama Katmanında gerçekleşir.",
+        },
+        {
+          question:
+            "İstemci-Sunucu modelinde, bir web sunucusu tarayıcı isteğine bir HTML sayfası ile yanıt verdiğinde sunucunun rolü nedir?",
+          options: [
+            "A) İstemci, ek kaynaklar isteyen",
+            "B) Sunucu, istenen içeriği sağlayan",
+            "C) Vekil, isteği ileten",
+            "D) Çözümleyici, alanı çeviren",
+            "E) Ağ Geçidi, yanıtı yönlendiren",
+          ],
+          correct: "B) Sunucu, istenen içeriği sağlayan",
+          explanation:
+            "İstemci-Sunucu modelinde sunucu, istemcinin (tarayıcının) isteğine yanıt olarak içerik sağlar.",
+        },
+        {
+          question:
+            "Hangi protokol, istemci ile sunucu arasındaki iletişimi şifreleyerek güvenli hale getirir?",
+          options: ["A) HTTP", "B) TCP", "C) HTTPS", "D) DNS", "E) IP"],
+          correct: "C) HTTPS",
+          explanation:
+            "HTTPS, verileri şifreleyerek istemci ile sunucu arasında güvenli iletişim sağlar.",
+        },
+        {
+          question:
+            "Bir .NET Core konsol uygulamasında, terminalden yeni bir proje oluşturmak için hangi komut kullanılır?",
+          options: [
+            "A) dotnet run",
+            "B) dotnet new console",
+            "C) dotnet build",
+            "D) dotnet restore",
+            "E) dotnet publish",
+          ],
+          correct: "B) dotnet new console",
+          explanation:
+            "'dotnet new console', .NET Core'da yeni bir konsol uygulaması projesi oluşturur.",
+        },
+        {
+          question:
+            "Bir geliştirici, mevcut değişikliklerini depoya commit etmeden geçici olarak kaydetmek istiyor. Hangi Git komutunu kullanmalıdır?",
+          options: [
+            "A) git commit",
+            "B) git stash",
+            "C) git push",
+            "D) git branch",
+            "E) git merge",
+          ],
+          correct: "B) git stash",
+          explanation:
+            "'git stash', değişiklikleri geçici olarak saklar ve çalışma dizinini temizler.",
+        },
+        {
+          question:
+            "GitHub gibi bir uzak depoyla çalışırken, uzak depodan güncellemeleri yerel branche birleştirmeden almak için hangi komut kullanılır?",
+          options: [
+            "A) git pull",
+            "B) git fetch",
+            "C) git clone",
+            "D) git push",
+            "E) git remote add",
+          ],
+          correct: "B) git fetch",
+          explanation:
+            "'git fetch', uzak depodan güncellemeleri alır ancak yerel branch'e birleştirmez.",
+        },
+        {
+          question:
+            "Geçici derleme dosyalarını Git tarafından takip edilmekten hariç tutmak için hangi dosya düzenlenmelidir?",
+          options: [
+            "A) .gitconfig",
+            "B) .gitignore",
+            "C) README.md",
+            "D) .gitattributes",
+            "E) .gitmodules",
+          ],
+          correct: "B) .gitignore",
+          explanation:
+            "'.gitignore', Git'in takip etmeyeceği dosyaları belirtmek için kullanılır.",
+        },
+        {
+          question:
+            "Bir ekip, Git kullanarak bir özellik üzerinde işbirliği yapıyor. Ana branche değişiklik önermek için en iyi uygulama nedir?",
+          options: [
+            "A) Doğrudan ana branche push yapmak",
+            "B) Özellik branch'inden bir çekme isteği oluşturmak",
+            "C) Değişiklikleri yerel olarak commit edip e-posta ile paylaşmak",
+            "D) git stash kullanıp değişiklikleri manuel uygulamak",
+            "E) Her değişiklik için depoyu yeniden klonlamak",
+          ],
+          correct: "B) Özellik branch'inden bir çekme isteği oluşturmak",
+          explanation:
+            "Çekme istekleri, işbirliği için izole değişikliklerin önerilmesini sağlar.",
+        },
+        {
+          question:
+            "Bir istemci, bir API'ye mevcut bir kaynağı güncellemek için istek gönderir. HTTP metot semantiğine göre hangi metot kullanılmalıdır?",
+          options: ["A) GET", "B) POST", "C) PUT", "D) DELETE", "E) HEAD"],
+          correct: "C) PUT",
+          explanation: "PUT, mevcut bir kaynağı güncellemek için kullanılır.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core uygulaması, sunucu hatası ile sonuçlanan bir istek aldığında hangi HTTP durum kodu sınıfını döndürmelidir?",
+          options: ["A) 2xx", "B) 3xx", "C) 4xx", "D) 5xx", "E) 1xx"],
+          correct: "D) 5xx",
+          explanation:
+            "5xx durum kodları, sunucu tarafı hatalarını gösterir (örn. 500 Internal Server Error).",
+        },
+        {
+          question:
+            "Bir ASP.NET Core projesinde, istekleri işlemek için ara yazılım hattını hangi dosya tanımlar?",
+          options: [
+            "A) Startup.cs veya Program.cs",
+            "B) appsettings.json",
+            "C) Controller.cs",
+            "D) launchSettings.json",
+            "E) wwwroot/index.html",
+          ],
+          correct: "A) Startup.cs veya Program.cs",
+          explanation:
+            "Ara yazılım hattı, Program.cs veya Startup.cs'de yapılandırılır.",
+        },
+        {
+          question:
+            "Bir geliştirici, ASP.NET Core uygulamasında her gelen isteği günlüğe kaydetmek istiyor. En iyi yaklaşım nedir?",
+          options: [
+            "A) Her controllera günlük kodu eklemek",
+            "B) Özel bir ara yazılım oluşturup hattına eklemek",
+            "C) HTTP yanıtını doğrudan değiştirmek",
+            "D) Yalnızca üçüncü taraf bir günlük servisi kullanmak",
+            "E) Varsayılan controller şablonunu düzenlemek",
+          ],
+          correct: "B) Özel bir ara yazılım oluşturup hattına eklemek",
+          explanation:
+            "Ara yazılım, istekleri merkezi bir şekilde işlemek için idealdir.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core uygulamasında bir servis, tek bir kullanıcı oturumu boyunca tüm isteklerde durumu korumalıdır. Hangi servis yaşam süresi kullanılmalıdır?",
+          options: [
+            "A) Transient",
+            "B) Scoped",
+            "C) Singleton",
+            "D) PerResolve",
+            "E) RequestScoped",
+          ],
+          correct: "B) Scoped",
+          explanation:
+            "Scoped yaşam süresi, bir HTTP isteği kapsamındaki durumu korur.",
+        },
+        {
+          question:
+            "ASP.NET Core'da Bağımlılık Enjeksiyonu (DI) kullanmanın birincil faydası nedir?",
+          options: [
+            "A) Daha hızlı uygulama başlatma",
+            "B) Gevşek bağlılık ve geliştirilmiş test edilebilirlik",
+            "C) Azaltılmış bellek kullanımı",
+            "D) Basitleştirilmiş yönlendirme",
+            "E) Otomatik veritabanı bağlantısı",
+          ],
+          correct: "B) Gevşek bağlılık ve geliştirilmiş test edilebilirlik",
+          explanation:
+            "DI, kodun esnekliğini ve test edilebilirliğini artırır.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core uygulamasında rota '/products/{id:int}' olarak tanımlanmıştır. ':int' neyi ifade eder?",
+          options: [
+            "A) Zorunlu bir parametre",
+            "B) Bir rota kısıtlaması",
+            "C) İsteğe bağlı bir parametre",
+            "D) Varsayılan bir değer",
+            "E) Bir sorgu dizesi",
+          ],
+          correct: "B) Bir rota kısıtlaması",
+          explanation:
+            "':int', id parametresinin tamsayı olması gerektiğini kısıtlar.",
+        },
+        {
+          question:
+            "ASP.NET Core'da bir rota eşleşmezse, geliştirici ilk olarak neyi kontrol etmelidir?",
+          options: [
+            "A) Veritabanı bağlantısını",
+            "B) HTTP metodunu ve rota şablon sözdizimini",
+            "C) İstemcinin IP adresini",
+            "D) Program.cs'deki ara yazılım sırasını",
+            "E) Yanıt başlıklarını",
+          ],
+          correct: "B) HTTP metodunu ve rota şablon sözdizimini",
+          explanation:
+            "Yanlış metot veya şablon Vastel, eşleşme başarısızlığına neden olabilir.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core controller, '/products?searchTerm=book' gibi bir URL'den 'searchTerm' sorgu parametresini almak istiyor. Hangi öznitelik kullanılmalıdır?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromQuery]",
+            "C) [FromRoute]",
+            "D) [FromHeader]",
+            "E) [FromForm]",
+          ],
+          correct: "B) [FromQuery]",
+          explanation: "[FromQuery], sorgu dizesinden parametre bağlar.",
+        },
+        {
+          question:
+            "Bir controller eylemi istemciye bir dosya döndürür. Hangi IActionResult metodu kullanılmalıdır?",
+          options: [
+            "A) Ok()",
+            "B) Json()",
+            "C) File()",
+            "D) Content()",
+            "E) StatusCode()",
+          ],
+          correct: "C) File()",
+          explanation:
+            "File(), dosya içeriğini istemciye döndürmek için kullanılır.",
+        },
+        {
+          question:
+            "ASP.NET Core'da model bağlama başarısız olduğunda, doğrulama hatalarını belirlemek için hangi özellik kontrol edilebilir?",
+          options: [
+            "A) HttpContext",
+            "B) ModelState",
+            "C) Request.Headers",
+            "D) Response.StatusCode",
+            "E) IActionResult",
+          ],
+          correct: "B) ModelState",
+          explanation: "ModelState, bağlama ve doğrulama hatalarını içerir.",
+        },
+        {
+          question:
+            "Bir API uç noktası JSON yükü alır ancak bunu bir parametreye bağlayamaz. İlk olarak ne doğrulanmalıdır?",
+          options: [
+            "A) [FromBody] özniteliğinin mevcut olması",
+            "B) Rota şablonunun eşleşmesi",
+            "C) Sorgu dizesinin doğru olması",
+            "D) Yanıt başlıklarının ayarlanması",
+            "E) Ara yazılım sırası",
+          ],
+          correct: "A) [FromBody] özniteliğinin mevcut olması",
+          explanation: "[FromBody], JSON gövdesini bağlamak için gereklidir.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core modelinde kullanıcının e-posta adresinin geçerli olmasını sağlamak için hangi veri notasyon özniteliği kullanılmalıdır?",
+          options: [
+            "A) [Required]",
+            "B) [StringLength]",
+            "C) [EmailAddress]",
+            "D) [Range]",
+            "E) [RegularExpression]",
+          ],
+          correct: "C) [EmailAddress]",
+          explanation: "[EmailAddress], e-posta biçimini doğrular.",
+        },
+        {
+          question:
+            "Bir API, parolanın karmaşıklık gereksinimlerini (örn. en az 8 karakter ve bir rakam) karşıladığından emin olmalıdır. Bu doğrulama mantığı nerede tanımlanmalıdır?",
+          options: [
+            "A) Controller eyleminde",
+            "B) Özel bir ara yazılımda",
+            "C) Model özelliğinde veri notasyonları olarak",
+            "D) Program.cs dosyasında",
+            "E) Veritabanı şemasında",
+          ],
+          correct: "C) Model özelliğinde veri notasyonları olarak",
+          explanation:
+            "Veri notasyonları, doğrulama kurallarını bildirimsel olarak tanımlar.",
+        },
+        {
+          question:
+            "Bir API tasarlarken, uç noktaları kaynaklar etrafında yapılandırmak için önerilen yaklaşım nedir?",
+          options: [
+            "A) URI'lerde fiiller kullanmak (örn. /getProducts)",
+            "B) İsimler ve HTTP metotları kullanmak (örn. /products ile GET)",
+            "C) Tüm mantığı tek bir uç noktada toplamak",
+            "D) Sorgu parametrelerinden kaçınmak",
+            "E) Rastgele URI desenleri kullanmak",
+          ],
+          correct: "B) İsimler ve HTTP metotları kullanmak",
+          explanation:
+            "Kaynak odaklı tasarım, isimler ve HTTP metotları kullanır.",
+        },
+        {
+          question:
+            "Bir API büyük bir veri kümesi döndürür. Bunu verimli bir şekilde nasıl işleyebilir?",
+          options: [
+            "A) Tüm veriyi tek bir yanıtta döndürmek",
+            "B) Sayfa numaraları ile sayfalama uygulamak",
+            "C) GET yerine POST isteği kullanmak",
+            "D) Sunucu zaman aşımını artırmak",
+            "E) Yanıtı manuel olarak sıkıştırmak",
+          ],
+          correct: "B) Sayfa numaraları ile sayfalama uygulamak",
+          explanation:
+            "Sayfalama, büyük veri kümelerini verimli bir şekilde yönetir.",
+        },
+        {
+          question:
+            "TCP/IP yığınında, bir yanıt Ağ Arayüzü Katmanından Uygulama Katmanına yukarı doğru hareket ettiğinde hangi işlem gerçekleşir?",
+          options: [
+            "A) Kapsülleme",
+            "B) Kapsül Çözme",
+            "C) Yönlendirme",
+            "D) Çoklama",
+            "E) Bölümleme",
+          ],
+          correct: "B) Kapsül Çözme",
+          explanation:
+            "Kapsül çözme, verinin yukarı doğru hareket ederken başlıklarının çıkarılmasıdır.",
+        },
+        {
+          question:
+            "Bir geliştirici yanlışlıkla hassas verileri bir Git deposuna commit eder. Bunu geçmişten çıkarmak için hangi komut kullanılabilir?",
+          options: [
+            "A) git reset",
+            "B) git revert",
+            "C) git rebase",
+            "D) git filter-branch",
+            "E) git stash",
+          ],
+          correct: "D) git filter-branch",
+          explanation:
+            "'git filter-branch', commit geçmişini yeniden yazarak veriyi kaldırır.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core API uç noktası '404 Bulunamadı' döndürür. Bu neyi gösterir?",
+          options: [
+            "A) Sunucu hatası",
+            "B) Kaynak mevcut değil",
+            "C) Başarılı istek",
+            "D) Yönlendirme gerekli",
+            "E) Bilgilendirici yanıt",
+          ],
+          correct: "B) Kaynak mevcut değil",
+          explanation:
+            "404, istenen kaynağın sunucuda bulunamadığını belirtir.",
+        },
+        {
+          question:
+            "ASP.NET Core'da bir Singleton servis, istek başına veriler için yanlışlıkla kullanılır. Hangi sorun ortaya çıkabilir?",
+          options: [
+            "A) Paylaşılan durumdan bellek sızıntıları",
+            "B) Daha hızlı performans",
+            "C) Yanlış yönlendirme",
+            "D) Model bağlama hataları",
+            "E) Ara yazılım başarısızlığı",
+          ],
+          correct: "A) Paylaşılan durumdan bellek sızıntıları",
+          explanation:
+            "Singleton, tüm istekler arasında paylaşılır ve durum sorunlarına yol açabilir.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core eyleminde form verilerini bağlamak için hangi öznitelik uygundur?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromForm]",
+            "C) [FromRoute]",
+            "D) [FromHeader]",
+            "E) [FromQuery]",
+          ],
+          correct: "B) [FromForm]",
+          explanation: "[FromForm], form gönderimlerinden veri bağlar.",
+        },
+        {
+          question: "Bir API HATEOAS kullanır. Bu, istemcilere ne sağlar?",
+          options: [
+            "A) Daha hızlı yanıt süreleri",
+            "B) Gezinme için hipermedya bağlantıları",
+            "C) Şifreli yükler",
+            "D) Otomatik doğrulama",
+            "E) Azaltılmış sunucu yükü",
+          ],
+          correct: "B) Gezinme için hipermedya bağlantıları",
+          explanation: "HATEOAS, API'nin keşfedilebilirliğini artırır.",
+        },
+        {
+          question:
+            "Git'te, çalışma dizini ile hazırlama alanı arasındaki farkları hangi komut gösterir?",
+          options: [
+            "A) git log",
+            "B) git status",
+            "C) git diff",
+            "D) git commit",
+            "E) git push",
+          ],
+          correct: "C) git diff",
+          explanation:
+            "'git diff', değişikliklerin ayrıntılı karşılaştırmasını gösterir.",
+        },
+        {
+          question:
+            "ASP.NET Core'da yönlendirmeyi etkinleştirmek için hangi ara yazılım yapılandırılmalıdır?",
+          options: [
+            "A) app.UseAuthentication()",
+            "B) app.UseRouting()",
+            "C) app.UseCors()",
+            "D) app.UseStaticFiles()",
+            "E) app.UseHttpsRedirection()",
+          ],
+          correct: "B) app.UseRouting()",
+          explanation:
+            "app.UseRouting(), isteklerin uç noktalara yönlendirilmesini sağlar.",
+        },
+        {
+          question:
+            "Bir geliştirici, bir modelde bir değerin 1 ile 100 arasında olmasını sağlamak istiyor. Hangi veri notasyonu kullanılmalıdır?",
+          options: [
+            "A) [Required]",
+            "B) [Range(1, 100)]",
+            "C) [StringLength]",
+            "D) [EmailAddress]",
+            "E) [Compare]",
+          ],
+          correct: "B) [Range(1, 100)]",
+          explanation:
+            "[Range], bir değerin belirli bir aralıkta olmasını sağlar.",
+        },
+        {
+          question:
+            "Bir API'de bir kaynağı silmek için hangi HTTP metodu kullanılmalıdır?",
+          options: ["A) GET", "B) POST", "C) PUT", "D) DELETE", "E) PATCH"],
+          correct: "D) DELETE",
+          explanation: "DELETE, kaynakları silmek için tanımlanmıştır.",
+        },
+        {
+          question: "Git'te 'git merge', dalları birleştirirken ne yapar?",
+          options: [
+            "A) Yeni bir dal oluşturur",
+            "B) Değişiklikleri mevcut dala birleştirir",
+            "C) Kaynak dalı siler",
+            "D) Commit geçmişini sıfırlar",
+            "E) Commit edilmemiş değişiklikleri saklar",
+          ],
+          correct: "B) Değişiklikleri mevcut dala birleştirir",
+          explanation:
+            "'git merge', dalları birleştirerek değişiklikleri bir araya getirir.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core rotası '/users/{id}', '/users/abc' ile eşleşmez. Neden?",
+          options: [
+            "A) Eksik sorgu parametresi",
+            "B) Yanlış HTTP metodu",
+            "C) Rota kısıtlaması uyuşmazlığı (örn. int bekleniyor)",
+            "D) Ara yazılım yapılandırılmamış",
+            "E) Geçersiz JSON yükü",
+          ],
+          correct: "C) Rota kısıtlaması uyuşmazlığı (örn. int bekleniyor)",
+          explanation: "'id' tamsayı bekler, ancak 'abc' bir dizedir.",
+        },
+        {
+          question:
+            "ASP.NET Core'da [FromHeader] özniteliği bir eylemde ne yapar?",
+          options: [
+            "A) İstek gövdesinden veri bağlar",
+            "B) HTTP başlıklarından veri bağlar",
+            "C) Rotadan veri bağlar",
+            "D) Sorgu dizelerinden veri bağlar",
+            "E) Form alanlarından veri bağlar",
+          ],
+          correct: "B) HTTP başlıklarından veri bağlar",
+          explanation: "[FromHeader], başlık verilerini parametreye bağlar.",
+        },
+        {
+          question:
+            "Bir API tasarlarken veri alışverişi için JSON neden tercih edilir?",
+          options: [
+            "A) XML'den daha hızlıdır",
+            "B) İnsan tarafından okunabilir ve yaygın desteklenir",
+            "C) İkili veriyi doğal olarak destekler",
+            "D) Katı tip tanımlamayı zorlar",
+            "E) Sunucu bellek kullanımını azaltır",
+          ],
+          correct: "B) İnsan tarafından okunabilir ve yaygın desteklenir",
+          explanation: "JSON, okunabilirliği ve uyumluluğu ile öne çıkar.",
+        },
+        {
+          question:
+            "Bir .NET Core uygulaması hem Windows hem Linux'ta çalışmalıdır. Bunu hangi ASP.NET Core özelliği mümkün kılar?",
+          options: [
+            "A) Bağımlılık Enjeksiyonu",
+            "B) Platformlar arası doğası",
+            "C) Ara yazılım hattı",
+            "D) Yönlendirme sistemi",
+            "E) Model bağlama",
+          ],
+          correct: "B) Platformlar arası doğası",
+          explanation:
+            "ASP.NET Core, çoklu platform desteği ile tasarlanmıştır.",
+        },
+        {
+          question: "Git'te 'git remote add origin <url>' neyi başarır?",
+          options: [
+            "A) Bir depoyu klonlar",
+            "B) Yerel depoyu bir uzak depoya bağlar",
+            "C) Değişiklikleri uzak depoya gönderir",
+            "D) Yeni bir dal oluşturur",
+            "E) Uzak değişiklikleri alır",
+          ],
+          correct: "B) Yerel depoyu bir uzak depoya bağlar",
+          explanation: "Bu komut, yerel depoyu uzak bir depoya bağlar.",
+        },
+      ];
+
+      const modelB = [
+        {
+          question:
+            "TCP/IP yığınında veri aşağı doğru hareket ederken her katman ne ekler?",
+          options: [
+            "A) Veri gövdesi",
+            "B) Başlık bilgisi",
+            "C) Şifreleme anahtarı",
+            "D) Rota bilgisi",
+            "E) Hata kodu",
+          ],
+          correct: "B) Başlık bilgisi",
+          explanation:
+            "Kapsülleme sırasında her katman, veriye kendi başlık bilgisini ekler.",
+        },
+        {
+          question:
+            "Bir istemci, sunucudan bir web sayfası istediğinde hangi protokol kullanılır?",
+          options: ["A) FTP", "B) HTTP", "C) SMTP", "D) DNS", "E) UDP"],
+          correct: "B) HTTP",
+          explanation:
+            "HTTP, web sayfalarının istemci-sunucu arasında aktarımı için kullanılır.",
+        },
+        {
+          question: "IPv6 adresleri kaç bit uzunluğundadır?",
+          options: ["A) 32", "B) 64", "C) 128", "D) 256", "E) 16"],
+          correct: "C) 128",
+          explanation:
+            "IPv6, 128 bitlik adreslerle daha geniş bir adres alanı sağlar.",
+        },
+        {
+          question:
+            "Bir .NET Core uygulamasını çalıştırmak için hangi komut kullanılır?",
+          options: [
+            "A) dotnet build",
+            "B) dotnet run",
+            "C) dotnet new",
+            "D) dotnet restore",
+            "E) dotnet publish",
+          ],
+          correct: "B) dotnet run",
+          explanation: "'dotnet run', projeyi derler ve çalıştırır.",
+        },
+        {
+          question:
+            "Bir geliştirici, yalnızca belirli bir dosyayı bir sonraki commit için hazırlamak istiyor. Hangi Git komutunu kullanır?",
+          options: [
+            "A) git add .",
+            "B) git commit",
+            "C) git add <dosya>",
+            "D) git push",
+            "E) git stash",
+          ],
+          correct: "C) git add <dosya>",
+          explanation:
+            "'git add <dosya>', belirli bir dosyayı hazırlama alanına ekler.",
+        },
+        {
+          question:
+            "Uzak bir depoyu yerel makineye indirmek için hangi Git komutu kullanılır?",
+          options: [
+            "A) git fetch",
+            "B) git pull",
+            "C) git clone",
+            "D) git remote add",
+            "E) git push",
+          ],
+          correct: "C) git clone",
+          explanation:
+            "'git clone', bir depoyu tamamen yerel makineye kopyalar.",
+        },
+        {
+          question:
+            "Git’te birleştirme çakışmalarını çözmek için hangi komut kullanılır?",
+          options: [
+            "A) git merge",
+            "B) git rebase",
+            "C) git commit",
+            "D) git resolve",
+            "E) git checkout",
+          ],
+          correct: "A) git merge",
+          explanation:
+            "'git merge' sırasında çakışmalar manuel olarak çözülür ve ardından commit edilir.",
+        },
+        {
+          question:
+            "Git’te bir etiket (tag) oluşturmak için hangi komut kullanılır?",
+          options: [
+            "A) git tag",
+            "B) git branch",
+            "C) git commit",
+            "D) git push",
+            "E) git log",
+          ],
+          correct: "A) git tag",
+          explanation: "'git tag', belirli bir commit’e etiket ekler.",
+        },
+        {
+          question:
+            "Bir API, yeni bir kaynak oluşturmak için hangi HTTP metodunu kullanır?",
+          options: ["A) GET", "B) POST", "C) PUT", "D) DELETE", "E) PATCH"],
+          correct: "B) POST",
+          explanation: "POST, yeni kaynaklar oluşturmak için kullanılır.",
+        },
+        {
+          question:
+            "Bir istemci, geçersiz bir istek gönderdiğinde sunucu hangi HTTP durum kodu sınıfını döndürür?",
+          options: ["A) 1xx", "B) 2xx", "C) 3xx", "D) 4xx", "E) 5xx"],
+          correct: "D) 4xx",
+          explanation:
+            "4xx kodları, istemci hatalarını gösterir (örn. 400 Bad Request).",
+        },
+        {
+          question:
+            "ASP.NET Core’da hangi dosya, proje yapılandırma ayarlarını içerir?",
+          options: [
+            "A) Program.cs",
+            "B) appsettings.json",
+            "C) Startup.cs",
+            "D) Controller.cs",
+            "E) wwwroot/index.html",
+          ],
+          correct: "B) appsettings.json",
+          explanation: "appsettings.json, yapılandırma ayarlarını saklar.",
+        },
+        {
+          question: "ASP.NET Core’da özel bir ara yazılım nasıl eklenir?",
+          options: [
+            "A) Controller’a kod yazılır",
+            "B) Program.cs’de Use metodu ile",
+            "C) Yeni bir proje oluşturulur",
+            "D) appsettings.json’a eklenir",
+            "E) Otomatik olarak eklenir",
+          ],
+          correct: "B) Program.cs’de Use metodu ile",
+          explanation: "Özel ara yazılım, Use metodu ile pipeline’a eklenir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da her istek için yeni bir servis örneği oluşturulması için hangi yaşam süresi kullanılır?",
+          options: [
+            "A) Singleton",
+            "B) Scoped",
+            "C) Transient",
+            "D) PerResolve",
+            "E) RequestScoped",
+          ],
+          correct: "C) Transient",
+          explanation:
+            "Transient, her bağımlılık çözümlemesinde yeni bir örnek oluşturur.",
+        },
+        {
+          question: "Bağımlılık Enjeksiyonu’nun temel prensibi nedir?",
+          options: [
+            "A) Kontrolün Tersine Çevrilmesi",
+            "B) Hızlı Yanıt",
+            "C) Veri Şifreleme",
+            "D) Rota Tanımlama",
+            "E) Model Bağlama",
+          ],
+          correct: "A) Kontrolün Tersine Çevrilmesi",
+          explanation: "DI, IoC prensibine dayanır.",
+        },
+        {
+          question: "ASP.NET Core’da rota parametrelerini nasıl tanımlarsınız?",
+          options: [
+            "A) [FromBody] ile",
+            "B) {param} sözdizimi ile",
+            "C) Sorgu dizesi ile",
+            "D) Başlık ile",
+            "E) Form ile",
+          ],
+          correct: "B) {param} sözdizimi ile",
+          explanation:
+            "Rota parametreleri, şablonlarda {param} ile tanımlanır.",
+        },
+        {
+          question:
+            "ASP.NET Core’da bir rota şablonunda isteğe bağlı bir parametre nasıl belirtilir?",
+          options: [
+            "A) :int ile",
+            "B) ? ile",
+            "C) * ile",
+            "D) ! ile",
+            "E) = ile",
+          ],
+          correct: "B) ? ile",
+          explanation:
+            "? işareti, parametrenin isteğe bağlı olduğunu belirtir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da bir eylem, rota verilerinden parametre nasıl alır?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromRoute]",
+            "C) [FromQuery]",
+            "D) [FromHeader]",
+            "E) [FromForm]",
+          ],
+          correct: "B) [FromRoute]",
+          explanation: "[FromRoute], rota verilerinden parametre bağlar.",
+        },
+        {
+          question:
+            "Bir controller, istemciye JSON verisi döndürmek için hangi IActionResult metodunu kullanır?",
+          options: [
+            "A) Ok()",
+            "B) Json()",
+            "C) File()",
+            "D) Content()",
+            "E) StatusCode()",
+          ],
+          correct: "B) Json()",
+          explanation: "Json(), JSON biçiminde veri döndürür.",
+        },
+        {
+          question: "ASP.NET Core’da istek başlıklarına nasıl erişilir?",
+          options: [
+            "A) HttpContext.Request.Headers",
+            "B) ModelState",
+            "C) Response.Headers",
+            "D) IActionResult",
+            "E) Request.Body",
+          ],
+          correct: "A) HttpContext.Request.Headers",
+          explanation: "HttpContext.Request.Headers, başlıklara erişim sağlar.",
+        },
+        {
+          question:
+            "Model bağlama sırasında Content-Type başlığı neden önemlidir?",
+          options: [
+            "A) Hızlı yanıt için",
+            "B) Doğru biçimlendiriciyi seçmek için",
+            "C) Şifreleme için",
+            "D) Rota eşleşmesi için",
+            "E) Durum kodu için",
+          ],
+          correct: "B) Doğru biçimlendiriciyi seçmek için",
+          explanation:
+            "Content-Type, model bağlama için doğru biçimlendiriciyi belirler.",
+        },
+        {
+          question:
+            "Bir modelde bir alanın zorunlu olduğunu nasıl belirtirsiniz?",
+          options: [
+            "A) [Required]",
+            "B) [StringLength]",
+            "C) [Range]",
+            "D) [EmailAddress]",
+            "E) [Compare]",
+          ],
+          correct: "A) [Required]",
+          explanation: "[Required], bir alanın zorunlu olduğunu belirtir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da doğrulama hatalarını kontrol etmek için hangi özellik kullanılır?",
+          options: [
+            "A) HttpContext",
+            "B) ModelState.IsValid",
+            "C) Request.Headers",
+            "D) Response.StatusCode",
+            "E) IActionResult",
+          ],
+          correct: "B) ModelState.IsValid",
+          explanation: "ModelState.IsValid, doğrulama durumunu kontrol eder.",
+        },
+        {
+          question: "API tasarımında URI’lar için en iyi uygulama nedir?",
+          options: [
+            "A) Fiiller kullanmak",
+            "B) İsimler ve hiyerarşiler kullanmak",
+            "C) Rastgele desenler",
+            "D) Sorgu parametrelerinden kaçınmak",
+            "E) Kısa URI’lar",
+          ],
+          correct: "B) İsimler ve hiyerarşiler kullanmak",
+          explanation:
+            "URI’lar, kaynak isimleri ve hiyerarşilerle yapılandırılır.",
+        },
+        {
+          question: "Bir API, kaynakları sıralamak için ne kullanır?",
+          options: [
+            "A) Rota parametreleri",
+            "B) Sorgu parametreleri",
+            "C) Başlıklar",
+            "D) Gövde",
+            "E) Durum kodları",
+          ],
+          correct: "B) Sorgu parametreleri",
+          explanation:
+            "Sorgu parametreleri, sıralama ve filtreleme için kullanılır.",
+        },
+        {
+          question: "HTTP’de idempotent bir metot nedir?",
+          options: ["A) POST", "B) GET", "C) PATCH", "D) OPTIONS", "E) HEAD"],
+          correct: "B) GET",
+          explanation:
+            "GET, tekrarlanan isteklerde aynı sonucu döndürür (idempotent).",
+        },
+        {
+          question: "Git’te bir dalı silmek için hangi komut kullanılır?",
+          options: [
+            "A) git branch -d",
+            "B) git checkout",
+            "C) git merge",
+            "D) git reset",
+            "E) git stash",
+          ],
+          correct: "A) git branch -d",
+          explanation: "'git branch -d', bir dalı siler.",
+        },
+        {
+          question:
+            "ASP.NET Core’da hangi dosya varsayılan olarak statik dosyaları sunar?",
+          options: [
+            "A) wwwroot",
+            "B) Program.cs",
+            "C) appsettings.json",
+            "D) Startup.cs",
+            "E) Controller.cs",
+          ],
+          correct: "A) wwwroot",
+          explanation: "wwwroot, statik dosyaların varsayılan dizinidir.",
+        },
+        {
+          question:
+            "Bir API, istemciye yönlendirme gerektiğinde hangi HTTP durum kodunu döndürür?",
+          options: ["A) 200", "B) 301", "C) 404", "D) 500", "E) 201"],
+          correct: "B) 301",
+          explanation: "301 Moved Permanently, yönlendirme için kullanılır.",
+        },
+        {
+          question:
+            "ASP.NET Core’da DI konteynerine bir servis nasıl kaydedilir?",
+          options: [
+            "A) AddSingleton ile",
+            "B) UseMiddleware ile",
+            "C) Json() ile",
+            "D) FromBody ile",
+            "E) Route ile",
+          ],
+          correct: "A) AddSingleton ile",
+          explanation: "AddSingleton, servisleri DI konteynerine kaydeder.",
+        },
+        {
+          question:
+            "Bir ASP.NET Core rotasında hata ayıklama için ilk adım nedir?",
+          options: [
+            "A) Veritabanını kontrol et",
+            "B) HTTP metodunu doğrula",
+            "C) IP adresini kontrol et",
+            "D) Belleği artır",
+            "E) JSON’u sıkıştır",
+          ],
+          correct: "B) HTTP metodunu doğrula",
+          explanation: "Hatalı HTTP metodu, rota eşleşmesini engelleyebilir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da bir eylem, istemciye düz metin döndürmek için hangi metodu kullanır?",
+          options: [
+            "A) Ok()",
+            "B) Json()",
+            "C) Content()",
+            "D) File()",
+            "E) StatusCode()",
+          ],
+          correct: "C) Content()",
+          explanation: "Content(), düz metin veya özel içerik döndürür.",
+        },
+        {
+          question: "Bir modelde özel doğrulama mantığı nasıl uygulanır?",
+          options: [
+            "A) Controller’da",
+            "B) IValidatableObject ile",
+            "C) Middleware ile",
+            "D) Program.cs’de",
+            "E) JSON’da",
+          ],
+          correct: "B) IValidatableObject ile",
+          explanation: "IValidatableObject, özel doğrulama için kullanılır.",
+        },
+        {
+          question: "API tasarımında HATEOAS neyi ifade eder?",
+          options: [
+            "A) Hızlı yanıt",
+            "B) Hipermedya bağlantıları",
+            "C) Şifreleme",
+            "D) Sorgu parametreleri",
+            "E) Durum kodları",
+          ],
+          correct: "B) Hipermedya bağlantıları",
+          explanation: "HATEOAS, gezinme için hipermedya bağlantıları sağlar.",
+        },
+        {
+          question:
+            "Git’te commit geçmişini görmek için hangi komut kullanılır?",
+          options: [
+            "A) git status",
+            "B) git log",
+            "C) git diff",
+            "D) git commit",
+            "E) git push",
+          ],
+          correct: "B) git log",
+          explanation: "'git log', commit geçmişini listeler.",
+        },
+        {
+          question:
+            "ASP.NET Core’da bir istemciye 201 durum kodu döndürmek için hangi metot kullanılır?",
+          options: [
+            "A) Ok()",
+            "B) CreatedAtAction()",
+            "C) Json()",
+            "D) File()",
+            "E) BadRequest()",
+          ],
+          correct: "B) CreatedAtAction()",
+          explanation: "CreatedAtAction(), 201 Created durumunu döndürür.",
+        },
+        {
+          question: "Bir API, filtreleme için hangi yapıyı kullanır?",
+          options: [
+            "A) Rota parametreleri",
+            "B) Sorgu parametreleri",
+            "C) Başlıklar",
+            "D) Gövde",
+            "E) Durum kodları",
+          ],
+          correct: "B) Sorgu parametreleri",
+          explanation: "Sorgu parametreleri, filtreleme için idealdir.",
+        },
+        {
+          question: "ASP.NET Core’da hangi ara yazılım CORS’u etkinleştirir?",
+          options: [
+            "A) app.UseRouting()",
+            "B) app.UseCors()",
+            "C) app.UseAuthentication()",
+            "D) app.UseStaticFiles()",
+            "E) app.UseHttpsRedirection()",
+          ],
+          correct: "B) app.UseCors()",
+          explanation:
+            "app.UseCors(), çapraz kaynak paylaşımını etkinleştirir.",
+        },
+      ];
+      const modelC = [
+        {
+          question:
+            "TCP/IP yığınında, istemci-sunucu modelinde bir istemcinin belirli bir hizmeti hedeflemesini sağlayan katman hangisidir ve bu nasıl başarılır?",
+          options: [
+            "A) Ağ Katmanı - IP adresleri ile",
+            "B) Taşıma Katmanı - Port numaraları ile",
+            "C) Uygulama Katmanı - HTTP başlıkları ile",
+            "D) Bağlantı Katmanı - MAC adresleri ile",
+            "E) Fiziksel Katman - Kablo türü ile",
+          ],
+          correct: "B) Taşıma Katmanı - Port numaraları ile",
+          explanation:
+            "Taşıma Katmanı, TCP/IP yığınında port numaraları kullanarak bir istemcinin belirli bir hizmeti (örneğin, HTTP için 80) hedeflemesini sağlar. IP adresi cihazı tanımlar, ancak port numaraları aynı cihazda çalışan farklı hizmetleri ayırt eder.",
+        },
+        {
+          question:
+            "HTTP'nin durumsuz doğası nedeniyle, bir istemci ile sunucu arasında oturum bilgisini sürdürmek için genellikle ne kullanılır?",
+          options: [
+            "A) IP adresleri",
+            "B) Çerezler (Cookies)",
+            "C) TCP bağlantıları",
+            "D) DNS kayıtları",
+            "E) Port numaraları",
+          ],
+          correct: "B) Çerezler (Cookies)",
+          explanation:
+            "HTTP durumsuz bir protokoldür, yani her istek bağımsızdır. Çerezler, istemci tarafında saklanan ve sunucuya geri gönderilen küçük veri parçalarıdır; oturum bilgisini sürdürmek için yaygın olarak kullanılır.",
+        },
+        {
+          question:
+            "Bir C# socket istemcisinde, sunucuya bağlanmadan önce hangi iki bilgi gereklidir?",
+          options: [
+            "A) IP adresi ve port numarası",
+            "B) MAC adresi ve protokol türü",
+            "C) HTTP yöntemi ve başlıkları",
+            "D) DNS adı ve çerezler",
+            "E) Kullanıcı adı ve parola",
+          ],
+          correct: "A) IP adresi ve port numarası",
+          explanation:
+            "Bir C# socket istemcisi, sunucuya bağlanmak için sunucunun IP adresini (konumu belirlemek için) ve port numarasını (hizmeti tanımlamak için) bilmelidir. Bu, ağ iletişiminin temel bir gereksinimidir.",
+        },
+        {
+          question:
+            "Git'te birleştirme çakışması (merge conflict) hangi durumda ortaya çıkar ve nasıl çözülür?",
+          options: [
+            "A) Aynı dosyada aynı satırlarda çakışan değişiklikler olduğunda - Manuel düzenleme ile",
+            "B) Farklı dallarda farklı dosyalar değiştirildiğinde - Otomatik birleştirme ile",
+            "C) Uzak depo ile yerel depo senkronize olmadığında - Git pull ile",
+            "D) Bir dosya silindiğinde - Git rm ile",
+            "E) Commit mesajları çakıştığında - Yeni mesajla commit ile",
+          ],
+          correct:
+            "A) Aynı dosyada aynı satırlarda çakışan değişiklikler olduğunda - Manuel düzenleme ile",
+          explanation:
+            "Birleştirme çakışması, farklı dallarda aynı dosyanın aynı satırlarında çakışan değişiklikler yapıldığında oluşur. Çözüm, çakışan dosyaları manuel olarak düzenleyip ardından 'git add' ve 'git commit' ile tamamlanır.",
+        },
+        {
+          question:
+            "Merkezi Sürüm Kontrol Sistemleri (MSKS) ile Dağıtık Sürüm Kontrol Sistemleri (DSKS) arasındaki en büyük farklardan biri nedir?",
+          options: [
+            "A) MSKS daha hızlıdır çünkü yerel işlemler destekler",
+            "B) DSKS tek bir merkezi sunucuya bağımlıdır",
+            "C) MSKS'de her geliştirici tam sürüm geçmişine sahiptir",
+            "D) DSKS'de her geliştirici yerel bir depo ile çalışır",
+            "E) MSKS dallanma ve birleştirmeyi desteklemez",
+          ],
+          correct: "D) DSKS'de her geliştirici yerel bir depo ile çalışır",
+          explanation:
+            "DSKS (örneğin, Git), her geliştiricinin tam sürüm geçmişine sahip yerel bir depo ile çalışmasını sağlar, bu da merkezi bir sunucuya bağımlılığı ortadan kaldırır. MSKS ise tek bir merkezi sunucuya dayanır.",
+        },
+        {
+          question:
+            "Git'te 'git add .' ile 'git add -A' arasındaki fark nedir?",
+          options: [
+            "A) 'git add .' tüm dosyaları, 'git add -A' sadece değiştirilenleri hazırlar",
+            "B) 'git add .' mevcut dizindeki değişiklikleri, 'git add -A' tüm depodaki değişiklikleri hazırlar",
+            "C) 'git add .' silmeleri hariç tutar, 'git add -A' silmeleri içerir",
+            "D) 'git add .' yalnızca yeni dosyaları, 'git add -A' yalnızca değiştirilenleri hazırlar",
+            "E) İkisi arasında fark yoktur",
+          ],
+          correct:
+            "B) 'git add .' mevcut dizindeki değişiklikleri, 'git add -A' tüm depodaki değişiklikleri hazırlar",
+          explanation:
+            "'git add .' mevcut dizin ve alt dizinlerdeki değişiklikleri hazırlar, ancak başka bir dizindeki değişiklikleri kapsamaz. 'git add -A' ise tüm depodaki değişiklikleri (silme dahil) hazırlar.",
+        },
+        {
+          question:
+            "Bir Git commit mesajında 'feat:' önekini kullanmanın amacı nedir ve hangi durumda tercih edilir?",
+          options: [
+            "A) Bir hatayı düzelttiğini belirtmek için - Hata düzeltme commit'lerinde",
+            "B) Yeni bir özellik eklendiğini belirtmek için - Özellik geliştirme commit'lerinde",
+            "C) Kod yapısını iyileştirdiğini belirtmek için - Yeniden düzenleme commit'lerinde",
+            "D) Uzak depoya gönderildiğini belirtmek için - Push işlemlerinde",
+            "E) Çakışmayı çözdüğünü belirtmek için - Merge commit'lerinde",
+          ],
+          correct:
+            "B) Yeni bir özellik eklendiğini belirtmek için - Özellik geliştirme commit'lerinde",
+          explanation:
+            "'feat:' öneği, yeni bir özellik eklendiğini belirtir ve genellikle özellik geliştirme commit'lerinde kullanılır. Bu, commit mesajlarının türünü ve amacını açıkça ifade etmek için bir standarttır.",
+        },
+        {
+          question:
+            "'git log --oneline' komutunun çıktısı ile 'git log -p' komutunun çıktısı arasındaki temel fark nedir?",
+          options: [
+            "A) '--oneline' yalnızca yazar adını, '-p' commit mesajını gösterir",
+            "B) '--oneline' tek satırlık özet, '-p' her commit'in farklarını gösterir",
+            "C) '--oneline' dalları listeler, '-p' geçmişteki çakışmaları gösterir",
+            "D) '--oneline' yalnızca son commit'i, '-p' tüm commit'leri gösterir",
+            "E) '--oneline' commit hash'ini gizler, '-p' hash'i detaylandırır",
+          ],
+          correct:
+            "B) '--oneline' tek satırlık özet, '-p' her commit'in farklarını gösterir",
+          explanation:
+            "'git log --oneline' her commit'i tek satırda özetler (hash ve mesaj), 'git log -p' ise her commit'in detaylı farklarını (değişikliklerini) gösterir.",
+        },
+        {
+          question:
+            "'.gitignore' dosyasında '*.log' yazıp ardından '!error.log' eklemek ne anlama gelir?",
+          options: [
+            "A) Tüm log dosyalarını yoksayar, ancak error.log'u hariç tutar",
+            "B) Yalnızca error.log'u yoksayar, diğer log dosyalarını izler",
+            "C) Tüm log dosyalarını ve error.log'u yoksayar",
+            "D) error.log'u izler, diğer log dosyalarını yoksayar",
+            "E) Hiçbir dosyayı yoksaymaz, yalnızca bir hata mesajı oluşturur",
+          ],
+          correct: "D) error.log'u izler, diğer log dosyalarını yoksayar",
+          explanation:
+            "'*.log' tüm log dosyalarını yoksayar, ancak '!error.log' bu kuralı olumsuzlayarak yalnızca 'error.log' dosyasının izlenmesini sağlar.",
+        },
+        {
+          question: "'git checkout -b feature-x main' komutu ne yapar?",
+          options: [
+            "A) 'feature-x' dalını siler ve 'main'e geçer",
+            "B) 'main' dalından 'feature-x' dalını oluşturur ve ona geçer",
+            "C) 'feature-x' dalını 'main' ile birleştirir",
+            "D) 'feature-x' dalını listeler ve 'main'e geçer",
+            "E) 'main' dalını 'feature-x' ile yeniden adlandırır",
+          ],
+          correct:
+            "B) 'main' dalından 'feature-x' dalını oluşturur ve ona geçer",
+          explanation:
+            "'git checkout -b feature-x main', 'main' dalından 'feature-x' adında yeni bir dal oluşturur ve çalışma dizinini bu yeni dala geçirir.",
+        },
+        {
+          question:
+            "HTTPS'nin TCP/IP yığınındaki hangi katmanla ilişkilendirilen bir güvenlik özelliği vardır?",
+          options: [
+            "A) Ağ Katmanı - IPsec",
+            "B) Taşıma Katmanı - SSL/TLS",
+            "C) Uygulama Katmanı - HTTP",
+            "D) Bağlantı Katmanı - Ethernet",
+            "E) Fiziksel Katman - Kablo şifrelemesi",
+          ],
+          correct: "B) Taşıma Katmanı - SSL/TLS",
+          explanation:
+            "HTTPS, SSL/TLS kullanarak şifreleme sağlar ve bu, TCP/IP yığınında Taşıma Katmanı ile ilişkilidir. HTTP ise Uygulama Katmanında çalışır, ancak güvenliği SSL/TLS sağlar.",
+        },
+        {
+          question: "'git push origin --tags' komutunun amacı nedir?",
+          options: [
+            "A) Tüm dalları uzak depoya gönderir",
+            "B) Yalnızca etiketleri uzak depoya gönderir",
+            "C) Tüm etiketleri ve commit'leri uzak depoya gönderir",
+            "D) Etiketleri siler ve uzak depoyu günceller",
+            "E) Yerel etiketleri listeler",
+          ],
+          correct: "C) Tüm etiketleri ve commit'leri uzak depoya gönderir",
+          explanation:
+            "'git push origin --tags', yerel depodaki tüm etiketleri (ve ilgili commit'leri) uzak depoya gönderir. Etiketler otomatik olarak gönderilmez, bu nedenle bu komut gereklidir.",
+        },
+        {
+          question:
+            "Git'te 'git stash pop' ile 'git stash apply' arasındaki fark nedir?",
+          options: [
+            "A) 'pop' saklamayı siler, 'apply' saklamayı korur",
+            "B) 'pop' yalnızca hazırlanmış değişiklikleri, 'apply' tüm değişiklikleri uygular",
+            "C) 'pop' yeni bir dal oluşturur, 'apply' mevcut dala uygular",
+            "D) 'pop' saklamayı korur, 'apply' saklamayı siler",
+            "E) 'pop' geçmişteki commit'leri, 'apply' yalnızca farkları uygular",
+          ],
+          correct: "A) 'pop' saklamayı siler, 'apply' saklamayı korur",
+          explanation:
+            "'git stash pop', saklanmış değişiklikleri uygular ve saklama listesinden kaldırır; 'git stash apply' ise değişiklikleri uygular ama saklamayı listede tutar.",
+        },
+        {
+          question:
+            "Özellik Dalı İş Akışı'nda, 'main' dalını güncel tutmak için hangi komut dizisi sıkça kullanılır?",
+          options: [
+            "A) git fetch && git merge",
+            "B) git pull origin main",
+            "C) git push origin main",
+            "D) git branch -d main",
+            "E) git stash && git commit",
+          ],
+          correct: "B) git pull origin main",
+          explanation:
+            "'git pull origin main', uzak 'main' dalındaki en son değişiklikleri yerel 'main' dalına çeker ve birleştirir, Özellik Dalı İş Akışı'nda ana dalı güncel tutmak için yaygın bir yöntemdir.",
+        },
+        {
+          question:
+            "Bir .NET Core uygulamasında, 'dotnet restore' komutunun temel amacı nedir?",
+          options: [
+            "A) Projeyi derler",
+            "B) Bağımlılıkları indirir ve yükler",
+            "C) Uygulamayı çalıştırır",
+            "D) Yeni bir proje oluşturur",
+            "E) Yayın için paketler",
+          ],
+          correct: "B) Bağımlılıkları indirir ve yükler",
+          explanation:
+            "'dotnet restore', proje dosyasındaki belirtilen bağımlılıkları (örneğin, NuGet paketleri) indirir ve yükler, uygulamanın çalışması için gerekli ortamı hazırlar.",
+        },
+        {
+          question:
+            "Git'te 'git fetch' ile 'git pull' arasındaki temel fark nedir?",
+          options: [
+            "A) 'fetch' yerel dalı günceller, 'pull' yalnızca uzak değişiklikleri getirir",
+            "B) 'fetch' uzak değişiklikleri getirir ama birleştirmez, 'pull' getirir ve birleştirir",
+            "C) 'fetch' yalnızca dalları, 'pull' yalnızca etiketleri getirir",
+            "D) 'fetch' commit'leri siler, 'pull' commit'leri korur",
+            "E) 'fetch' yerel depoyu temizler, 'pull' uzak depoyu günceller",
+          ],
+          correct:
+            "B) 'fetch' uzak değişiklikleri getirir ama birleştirmez, 'pull' getirir ve birleştirir",
+          explanation:
+            "'git fetch', uzak depodan değişiklikleri getirir ama yerel dal ile birleştirmez; 'git pull' ise bu değişiklikleri getirir ve otomatik olarak birleştirir.",
+        },
+        {
+          question:
+            "HTTP'de 'POST' ve 'PUT' metodları arasındaki temel fark nedir?",
+          options: [
+            "A) 'POST' veri alır, 'PUT' veri gönderir",
+            "B) 'POST' yeni kaynak oluşturur, 'PUT' mevcut kaynağı günceller",
+            "C) 'POST' idempotenttir, 'PUT' değildir",
+            "D) 'POST' yalnızca istemciye, 'PUT' yalnızca sunucuya uygulanır",
+            "E) 'POST' başlık gerektirir, 'PUT' gerektirmez",
+          ],
+          correct:
+            "B) 'POST' yeni kaynak oluşturur, 'PUT' mevcut kaynağı günceller",
+          explanation:
+            "'POST', genellikle yeni bir kaynak oluşturmak için kullanılırken, 'PUT' mevcut bir kaynağı güncellemek için kullanılır. 'PUT' idempotenttir, 'POST' ise değildir.",
+        },
+        {
+          question:
+            "GitHub'da Çatallama ve Çekme İsteği modelinde, orijinal depodan güncellemeleri almak için hangi komut kullanılır?",
+          options: [
+            "A) git push origin main",
+            "B) git pull upstream main",
+            "C) git fetch origin feature",
+            "D) git merge origin main",
+            "E) git clone upstream",
+          ],
+          correct: "B) git pull upstream main",
+          explanation:
+            "Çatallama modelinde, orijinal depo genellikle 'upstream' olarak eklenir. 'git pull upstream main', orijinal deponun 'main' dalındaki güncellemeleri yerel depoya çeker ve birleştirir.",
+        },
+        {
+          question:
+            "Bir C# programında 'Console.WriteLine' ile 'Console.Write' arasındaki fark nedir?",
+          options: [
+            "A) 'WriteLine' dosyaya yazar, 'Write' konsola yazar",
+            "B) 'WriteLine' satır sonu ekler, 'Write' eklemez",
+            "C) 'WriteLine' yalnızca sayıları, 'Write' yalnızca metni yazdırır",
+            "D) 'WriteLine' hata mesajları için, 'Write' normal çıktı için kullanılır",
+            "E) 'WriteLine' daha hızlıdır, 'Write' daha yavaştır",
+          ],
+          correct: "B) 'WriteLine' satır sonu ekler, 'Write' eklemez",
+          explanation:
+            "'Console.WriteLine', metni konsola yazdırır ve ardından bir satır sonu ekler; 'Console.Write' ise satır sonu eklemeden yazdırır.",
+        },
+        {
+          question:
+            "Git'te birleştirme çakışmasını çözdükten sonra hangi adımlar izlenir?",
+          options: [
+            "A) git merge --continue, git push",
+            "B) git add <dosya>, git commit",
+            "C) git fetch, git pull",
+            "D) git stash, git apply",
+            "E) git branch -d, git log",
+          ],
+          correct: "B) git add <dosya>, git commit",
+          explanation:
+            "Birleştirme çakışması çözüldükten sonra, çakışan dosyalar 'git add' ile hazırlanır ve ardından 'git commit' ile birleştirme tamamlanır.",
+        },
+        {
+          question:
+            "Bir HTTP isteğinin temel bileşenlerinden biri olan 'İstek Satırı' hangi bilgileri içerir?",
+          options: [
+            "A) Yalnızca HTTP metodunu",
+            "B) HTTP metodu, URI ve HTTP sürümünü",
+            "C) Yalnızca URI ve başlıkları",
+            "D) HTTP sürümünü ve gövde verilerini",
+            "E) Başlıkları ve durum kodunu",
+          ],
+          correct: "B) HTTP metodu, URI ve HTTP sürümünü",
+          explanation:
+            "HTTP isteğinin 'İstek Satırı', istemcinin talebini tanımlayan ilk satırdır ve üç ana bileşenden oluşur: HTTP metodu (örneğin, GET, POST), URI (istenen kaynağın konumu) ve HTTP sürümü (örneğin, HTTP/1.1). Bu, isteğin temel yapısını oluşturur.",
+        },
+        {
+          question: "HTTP yanıtında 'Durum Kodu' neyi ifade eder?",
+          options: [
+            "A) Sunucunun kimlik bilgilerini",
+            "B) İsteğin sonucunu gösteren üç basamaklı bir sayıyı",
+            "C) Yanıt gövdesinin boyutunu",
+            "D) İstekteki başlıkların sayısını",
+            "E) Kullanılan HTTP metodunu",
+          ],
+          correct: "B) İsteğin sonucunu gösteren üç basamaklı bir sayıyı",
+          explanation:
+            "HTTP yanıtındaki 'Durum Kodu', istemcinin isteğinin sonucunu ifade eden üç basamaklı bir tamsayıdır (örneğin, 200 OK, 404 Not Found). Bu kod, isteğin başarılı olup olmadığını veya bir hata olup olmadığını hızlıca bildirir.",
+        },
+        {
+          question: "HTTP 'GET' metodunun temel özelliklerinden biri nedir?",
+          options: [
+            "A) Sunucuda yan etkilere neden olur",
+            "B) İdempotent değildir",
+            "C) Salt okunur bir işlem yapar ve güvenlidir",
+            "D) İstek gövdesi gerektirir",
+            "E) Yeni kaynaklar oluşturur",
+          ],
+          correct: "C) Salt okunur bir işlem yapar ve güvenlidir",
+          explanation:
+            "GET metodu, bir kaynağın temsilini almak için kullanılır ve salt okunurdur, yani sunucu üzerinde yan etkilere neden olmaz (güvenlidir). Aynı zamanda idempotenttir, yani aynı isteği birden fazla kez yapmak aynı sonucu üretir.",
+        },
+        {
+          question: "HTTP 'POST' metodu genellikle ne için kullanılır?",
+          options: [
+            "A) Bir kaynağı silmek",
+            "B) Bir kaynağı yalnızca almak",
+            "C) Sunucuda yeni bir kaynak oluşturmak",
+            "D) Mevcut bir kaynağı kısmi olarak güncellemek",
+            "E) Sunucu yeteneklerini sorgulamak",
+          ],
+          correct: "C) Sunucuda yeni bir kaynak oluşturmak",
+          explanation:
+            "POST metodu, sunucuya veri göndererek genellikle yeni bir kaynak oluşturmak için kullanılır (örneğin, bir sipariş kaydı). İdempotent değildir ve sunucu durumunda değişikliklere yol açabilir.",
+        },
+        {
+          question: "HTTP durum kodlarından '404 Not Found' ne anlama gelir?",
+          options: [
+            "A) İstek başarıyla tamamlandı",
+            "B) Sunucu isteği işleyemedi",
+            "C) İstenen kaynak bulunamadı",
+            "D) İstemci kimlik doğrulaması gerekiyor",
+            "E) Kaynak kalıcı olarak taşındı",
+          ],
+          correct: "C) İstenen kaynak bulunamadı",
+          explanation:
+            "404 Not Found durum kodu, sunucunun istemcinin talep ettiği URI ile eşleşen bir kaynak bulamadığını gösterir. Bu, istemci tarafı bir hata olarak sınıflandırılır (4xx).",
+        },
+        {
+          question: "ASP.NET Core'un temel avantajlarından biri nedir?",
+          options: [
+            "A) Yalnızca Windows üzerinde çalışır",
+            "B) Platformlar arası bir framework olması",
+            "C) Yavaş performansı",
+            "D) Kapalı kaynaklı olması",
+            "E) Bağımlılık enjeksiyonunu desteklememesi",
+          ],
+          correct: "B) Platformlar arası bir framework olması",
+          explanation:
+            "ASP.NET Core, Windows, macOS ve Linux gibi farklı platformlarda çalışabilen platformlar arası bir framework’tür. Bu, geliştiricilere esneklik sağlar ve modern web geliştirme için önemli bir avantajdır.",
+        },
+        {
+          question: "ASP.NET Core'da 'Middleware' neyi ifade eder?",
+          options: [
+            "A) Veritabanı bağlantı katmanını",
+            "B) HTTP isteklerini ve yanıtlarını işleyen bir bileşeni",
+            "C) Kullanıcı arayüzü oluşturma aracını",
+            "D) Yalnızca statik dosyaları sunan bir modülü",
+            "E) Sunucu donanımını kontrol eden bir yazılımı",
+          ],
+          correct: "B) HTTP isteklerini ve yanıtlarını işleyen bir bileşeni",
+          explanation:
+            "ASP.NET Core'da Middleware, HTTP isteklerini ve yanıtlarını işlemek için bir uygulama pipeline’ına eklenen yazılımdır. Pipeline boyunca isteği işleyebilir veya bir sonraki middleware’e iletebilir.",
+        },
+        {
+          question: "HTTP başlıklarından 'Content-Type' hangi bilgiyi sağlar?",
+          options: [
+            "A) İsteğin tarih ve saatini",
+            "B) Gövdenin medya türünü",
+            "C) Sunucunun kimliğini",
+            "D) Önbellekleme süresini",
+            "E) İstemcinin IP adresini",
+          ],
+          correct: "B) Gövdenin medya türünü",
+          explanation:
+            "Content-Type başlığı, HTTP isteği veya yanıtındaki gövdenin medya türünü belirtir (örneğin, application/json, text/html). Bu, içeriğin nasıl yorumlanacağını alıcıya bildirir.",
+        },
+        {
+          question:
+            "ASP.NET Core'da bir Web API projesi oluştururken varsayılan olarak hangi dosya uygulamanın giriş noktasını tanımlar?",
+          options: [
+            "A) appsettings.json",
+            "B) Program.cs",
+            "C) WeatherForecastController.cs",
+            "D) launchSettings.json",
+            "E) WebApp.csproj",
+          ],
+          correct: "B) Program.cs",
+          explanation:
+            "Program.cs dosyası, ASP.NET Core uygulamasının giriş noktasıdır. Hizmetleri ve middleware pipeline’ını yapılandırır ve uygulamayı başlatır.",
+        },
+        {
+          question:
+            "HTTP metodlarından 'PATCH' ile 'PUT' arasındaki temel fark nedir?",
+          options: [
+            "A) PATCH bir kaynağı siler, PUT ise oluşturur",
+            "B) PATCH bir kaynakta kısmi değişiklikler yapar, PUT ise tüm kaynağı günceller",
+            "C) PATCH idempotenttir, PUT ise değildir",
+            "D) PATCH yalnızca veri almak için kullanılır, PUT ise veri gönderir",
+            "E) PATCH gövde gerektirmez, PUT ise gerektirir",
+          ],
+          correct:
+            "B) PATCH bir kaynakta kısmi değişiklikler yapar, PUT ise tüm kaynağı günceller",
+          explanation:
+            "PATCH metodu, bir kaynakta yalnızca belirtilen kısımları güncellemek için kullanılırken, PUT metodu tüm kaynağı değiştirir veya yeni bir kaynak oluşturur. PATCH genellikle daha verimlidir çünkü sadece değişen verileri gönderir.",
+        },
+      ];
+
+      let currentModel = modelA;
+      let currentQuestionIndex = 0;
+      let selectedAnswer = null;
+      let score = { correct: 0, wrong: 0, attempted: 0 };
+      let tracking = Array(currentModel.length).fill(null);
+
+      function loadQuestion() {
+        const q = currentModel[currentQuestionIndex];
+        const container = document.getElementById("question-container");
+        container.innerHTML = `<p>${currentQuestionIndex + 1}. ${
+          q.question
+        }</p>`;
+        q.options.forEach((option, index) => {
+          container.innerHTML += `
+                          <div class="option">
+                              <input type="radio" name="answer" id="option${index}" value="${option}">
+                              <label for="option${index}">${option}</label>
+                          </div>`;
+        });
+        document.getElementById("result").style.display = "none";
+        document.getElementById("explanation").style.display = "none";
+        document.getElementById("prev-btn").disabled =
+          currentQuestionIndex === 0;
+        document.getElementById("next-btn").disabled =
+          currentQuestionIndex === currentModel.length - 1;
+        selectedAnswer = null;
+        updateTrackingTable();
+      }
+
+      function submitAnswer() {
+        const selected = document.querySelector('input[name="answer"]:checked');
+        if (!selected) {
+          alert("Lütfen bir cevap seçin!");
+          return;
+        }
+        selectedAnswer = selected.value;
+        const q = currentModel[currentQuestionIndex];
+        const result = document.getElementById("result");
+        const explanation = document.getElementById("explanation");
+        result.style.display = "block";
+        explanation.style.display = "block";
+        const isCorrect = selectedAnswer === q.correct;
+        if (isCorrect) {
+          result.textContent = "Doğru! Cevap: " + q.correct;
+          result.className = "correct";
+          if (tracking[currentQuestionIndex] === null) score.correct++;
+        } else {
+          result.textContent = "Yanlış! Doğru cevap: " + q.correct;
+          result.className = "wrong";
+          if (tracking[currentQuestionIndex] === null) score.wrong++;
+        }
+        explanation.textContent = "Açıklama: " + q.explanation;
+        if (tracking[currentQuestionIndex] === null) {
+          score.attempted++;
+          tracking[currentQuestionIndex] = isCorrect;
+        }
+        updateScoreTable();
+        updateTrackingTable();
+        checkFinalScore();
+      }
+
+      function nextQuestion() {
+        if (currentQuestionIndex < currentModel.length - 1) {
+          currentQuestionIndex++;
+          loadQuestion();
+        }
+      }
+
+      function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          loadQuestion();
+        }
+      }
+
+      function updateScoreTable() {
+        document.getElementById("correct-count").textContent = score.correct;
+        document.getElementById("wrong-count").textContent = score.wrong;
+        document.getElementById("attempted-count").textContent =
+          score.attempted;
+      }
+
+      function updateTrackingTable() {
+        const tbody = document.getElementById("tracking-body");
+        tbody.innerHTML = "";
+        currentModel.forEach((_, index) => {
+          const status =
+            tracking[index] === null
+              ? "Denenmedi"
+              : tracking[index]
+              ? "Doğru"
+              : "Yanlış";
+          const className =
+            tracking[index] === null
+              ? "unattempted"
+              : tracking[index]
+              ? "correct"
+              : "wrong";
+          tbody.innerHTML += `<tr class="${className}"><td>${
+            index + 1
+          }</td><td>${status}</td></tr>`;
+        });
+      }
+
+      function checkFinalScore() {
+        if (score.attempted === currentModel.length) {
+          const finalScore = document.getElementById("final-score");
+          finalScore.style.display = "block";
+          document.getElementById(
+            "final-score-text"
+          ).textContent = `Sonuç: ${score.correct} doğru, ${score.wrong} yanlış, Toplam: ${currentModel.length} soru`;
+        }
+      }
+
+      function resetQuiz() {
+        currentQuestionIndex = 0;
+        score = { correct: 0, wrong: 0, attempted: 0 };
+        tracking = Array(currentModel.length).fill(null);
+        loadQuestion();
+        updateScoreTable();
+        updateTrackingTable();
+        document.getElementById("final-score").style.display = "none";
+      }
+
+      function changeModel() {
+        const modelSelect = document.getElementById("model-select").value;
+
+        if ((currentModel = modelSelect === "A")) {
+          currentModel = modelA;
+        } else if ((currentModel = modelSelect === "B")) {
+          currentModel = modelB;
+        } else if ((currentModel = modelSelect === "C")) {
+          currentModel = modelC;
+        }
+
+        resetQuiz();
+      }
+
+      window.onload = () => {
+        loadQuestion();
+        updateTrackingTable();
+      };
+    </script>
+  </body>
+</html>
