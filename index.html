@@ -3543,6 +3543,417 @@
           explanation:
             "Filtreleme ve sıralama birleştiğinde, istemciler özelleştirilmiş veri alt kümeleri alabilir. Week 6 materyalinde (sayfa 25), bu fayda örneklendirilmiştir.",
         },
+
+        {
+          question: "Bağımlılık Enjeksiyonu (DI) nedir?",
+          options: [
+            "A) Bir programlama dili",
+            "B) Bileşenlerin bağımlılıklarını kendilerinin oluşturduğu bir yöntem",
+            "C) Bağımlılıkların bileşenlere dışarıdan enjekte edildiği bir tasarım deseni",
+            "D) Yalnızca veritabanı yönetimini kolaylaştıran bir araç",
+            "E) HTTP isteklerini yönlendiren bir mekanizma",
+          ],
+          correct:
+            "C) Bağımlılıkların bileşenlere dışarıdan enjekte edildiği bir tasarım deseni",
+          explanation:
+            "Bağımlılık Enjeksiyonu (DI), bileşenlerin bağımlılıklarını kendilerinin oluşturması yerine dışarıdan enjekte edilmesiyle bağımlılıkları yöneten bir tasarım desenidir. Week 4 materyalinde (sayfa 1), bu tanım açıkça belirtilmiştir.",
+        },
+        {
+          question: "Kontrolün Tersine Çevrilmesi (IoC) neyi ifade eder?",
+          options: [
+            "A) Uygulama kodunun nesne oluşturmayı kontrol ettiği bir yöntem",
+            "B) Nesne oluşturma ve yaşam döngüsünün bir çerçeve tarafından yönetildiği bir prensip",
+            "C) Yalnızca yönlendirme işlemlerini tersine çeviren bir teknik",
+            "D) Bağımlılıkların tamamen ortadan kaldırıldığı bir yaklaşım",
+            "E) HTTP metodlarının sırasını değiştiren bir yapı",
+          ],
+          correct:
+            "B) Nesne oluşturma ve yaşam döngüsünün bir çerçeve tarafından yönetildiği bir prensip",
+          explanation:
+            "Kontrolün Tersine Çevrilmesi (IoC), nesne oluşturma ve yaşam döngüsü kontrolünün uygulama kodundan çerçeveye tersine çevrildiği bir prensiptir. Week 4 materyalinde (sayfa 2), IoC’nin bu şekilde açıklandığı görülmektedir.",
+        },
+        {
+          question:
+            "Bağımlılık Enjeksiyonu’nun temel faydalarından biri nedir?",
+          options: [
+            "A) Kodun daha karmaşık hale gelmesi",
+            "B) Gevşek bağlılık sağlayarak esnekliği artırması",
+            "C) Test edilebilirliği azaltması",
+            "D) Bileşenler arası sıkı bağımlılığı teşvik etmesi",
+            "E) Yalnızca performansı artırması",
+          ],
+          correct: "B) Gevşek bağlılık sağlayarak esnekliği artırması",
+          explanation:
+            "DI, bileşenler arası sıkı bağımlılığı azaltarak gevşek bağlılık sağlar ve sistemi daha esnek hale getirir. Week 4 materyalinde (sayfa 3), bu fayda ‘Gevşek Bağlılık’ başlığı altında listelenmiştir.",
+        },
+        {
+          question: "ASP.NET Core’daki DI Konteyneri’nin temel işlevi nedir?",
+          options: [
+            "A) Yalnızca HTTP isteklerini yönlendirmek",
+            "B) Servislerin oluşturulmasını ve yaşam döngüsünü yönetmek",
+            "C) Statik dosyaları sunmak",
+            "D) Veritabanı bağlantılarını oluşturmak",
+            "E) URL’leri dinamik olarak oluşturmak",
+          ],
+          correct: "B) Servislerin oluşturulmasını ve yaşam döngüsünü yönetmek",
+          explanation:
+            "ASP.NET Core’un yerleşik DI Konteyneri, servislerin oluşturulmasını ve yaşam döngüsünü yönetir. Week 4 materyalinde (sayfa 3), bu rol açıkça tanımlanmıştır.",
+        },
+        {
+          question:
+            "Servislerin DI Konteynerine kaydedilmesi hangi dosyada yapılır?",
+          options: [
+            "A) Startup.cs",
+            "B) Program.cs",
+            "C) appsettings.json",
+            "D) Controller.cs",
+            "E) Middleware.cs",
+          ],
+          correct: "B) Program.cs",
+          explanation:
+            "ASP.NET Core’da servis kaydı, Program.cs dosyasında builder.Services koleksiyonu aracılığıyla yapılır. Week 4 materyalinde (sayfa 4), bu süreç örnekle açıklanmıştır.",
+        },
+        {
+          question:
+            "AddTransient metodu ile kaydedilen bir servis ne zaman yeni bir örnek oluşturur?",
+          options: [
+            "A) Uygulama yaşam döngüsü boyunca bir kez",
+            "B) Her HTTP isteği için bir kez",
+            "C) Her istendiğinde",
+            "D) Yalnızca ilk istekte",
+            "E) Kapsam değiştiğinde",
+          ],
+          correct: "C) Her istendiğinde",
+          explanation:
+            "Transient servisler, DI Konteynerinden her istendiğinde yeni bir örnek oluşturur. Week 4 materyalinde (sayfa 5), bu özellik ‘Transient Servis Yaşam Döngüsü’ başlığı altında belirtilmiştir.",
+        },
+        {
+          question: "Scoped servislerin temel özelliği nedir?",
+          options: [
+            "A) Uygulama genelinde tek bir örnek paylaşılır",
+            "B) Her istendiğinde yeni bir örnek oluşturulur",
+            "C) HTTP isteği başına bir örnek oluşturulur ve istek içinde paylaşılır",
+            "D) Durumu olmayan işlemler için kullanılır",
+            "E) Yalnızca test amaçlıdır",
+          ],
+          correct:
+            "C) HTTP isteği başına bir örnek oluşturulur ve istek içinde paylaşılır",
+          explanation:
+            "Scoped servisler, HTTP isteği başına bir kez oluşturulur ve o istek içinde paylaşılır. Week 4 materyalinde (sayfa 7), bu davranış açıkça tanımlanmıştır.",
+        },
+        {
+          question: "Singleton servisler hangi durumda uygundur?",
+          options: [
+            "A) Her istekte yeni bir örnek gerektiğinde",
+            "B) Uygulama genelinde paylaşılan durumu yönetmek için",
+            "C) HTTP isteği içinde durum korumak için",
+            "D) Hafif ve geçici işlemler için",
+            "E) Test edilebilirliği artırmak için",
+          ],
+          correct: "B) Uygulama genelinde paylaşılan durumu yönetmek için",
+          explanation:
+            "Singleton servisler, uygulama yaşam döngüsü boyunca tek bir örnek oluşturur ve paylaşılan durum veya pahalı oluşturmalar için uygundur. Week 4 materyalinde (sayfa 9), bu kullanım durumu belirtilmiştir.",
+        },
+        {
+          question: "Yapıcı Enjeksiyonu nasıl çalışır?",
+          options: [
+            "A) Bağımlılıklar metot parametreleri ile sağlanır",
+            "B) Bağımlılıklar sınıfın özelliklerine atanır",
+            "C) Bağımlılıklar yapıcının parametreleri aracılığıyla sağlanır",
+            "D) Bağımlılıklar yalnızca singleton olarak kaydedilir",
+            "E) Bağımlılıklar manuel olarak çözümlenir",
+          ],
+          correct:
+            "C) Bağımlılıklar yapıcının parametreleri aracılığıyla sağlanır",
+          explanation:
+            "Yapıcı Enjeksiyonu, bağımlılıkların bir sınıfın yapıcısına parametre olarak enjekte edilmesiyle çalışır. Week 4 materyalinde (sayfa 13), bu yöntem detaylı bir örnekle açıklanmıştır.",
+        },
+        {
+          question: "Metot Enjeksiyonu hangi öznitelikle kullanılır?",
+          options: [
+            "A) [Route]",
+            "B) [FromServices]",
+            "C) [HttpGet]",
+            "D) [Inject]",
+            "E) [Bind]",
+          ],
+          correct: "B) [FromServices]",
+          explanation:
+            "Metot Enjeksiyonu, bağımlılıkların metot parametrelerine enjekte edilmesi için [FromServices] özniteliğiyle kullanılır. Week 4 materyalinde (sayfa 15), bu kullanım örneğiyle gösterilmiştir.",
+        },
+        {
+          question: "Özellik Enjeksiyonu neden ASP.NET Core’da tercih edilmez?",
+          options: [
+            "A) Bağımlılıkları açıkça gösterir",
+            "B) Test edilebilirliği artırır",
+            "C) Bağımlılıkları gizler ve değiştirilebilirliği teşvik eder",
+            "D) Performansı artırır",
+            "E) Daha az kod gerektirir",
+          ],
+          correct:
+            "C) Bağımlılıkları gizler ve değiştirilebilirliği teşvik eder",
+          explanation:
+            "Özellik Enjeksiyonu, bağımlılıkları yapıcının dışında gizler ve değişmezliği azaltır, bu yüzden Yapıcı Enjeksiyonu tercih edilir. Week 4 materyalinde (sayfa 17), bu dezavantajlar belirtilmiştir.",
+        },
+        {
+          question:
+            "Bağımlılıklar için arayüz kullanmanın temel avantajı nedir?",
+          options: [
+            "A) Kodun daha hızlı çalışmasını sağlar",
+            "B) Gevşek bağlılık ve esneklik sağlar",
+            "C) Bağımlılıkların sayısını artırır",
+            "D) Test edilebilirliği azaltır",
+            "E) Yalnızca performansı optimize eder",
+          ],
+          correct: "B) Gevşek bağlılık ve esneklik sağlar",
+          explanation:
+            "Arayüzler, somut sınıflar yerine soyutlamalara bağımlılık sağlayarak gevşek bağlılık ve esneklik sunar. Week 4 materyalinde (sayfa 18), bu fayda vurgulanmıştır.",
+        },
+        {
+          question: "ASP.NET Core’da yönlendirme neyi ifade eder?",
+          options: [
+            "A) Bağımlılıkların enjekte edilmesi",
+            "B) HTTP isteklerinin uygun uç noktalara eşlenmesi",
+            "C) Servislerin yaşam döngüsünün yönetilmesi",
+            "D) Statik dosyaların sunulması",
+            "E) Veritabanı işlemlerinin düzenlenmesi",
+          ],
+          correct: "B) HTTP isteklerinin uygun uç noktalara eşlenmesi",
+          explanation:
+            "Yönlendirme, gelen HTTP isteklerini uygulama içindeki uygun uç noktalara eşler. Week 4 materyalinde (sayfa 21), bu tanım açıkça verilmiştir.",
+        },
+        {
+          question: "Geleneksel Yönlendirme nerede tanımlanır?",
+          options: [
+            "A) Kontrolcüler üzerinde özniteliklerle",
+            "B) Program.cs içinde UseEndpoints ara yazılımında",
+            "C) appsettings.json dosyasında",
+            "D) Middleware sınıflarında",
+            "E) Servis kayıtlarında",
+          ],
+          correct: "B) Program.cs içinde UseEndpoints ara yazılımında",
+          explanation:
+            "Geleneksel Yönlendirme, Program.cs’de UseEndpoints ara yazılımı içinde merkezi olarak tanımlanır. Week 4 materyalinde (sayfa 22), bu yapılandırma örneğiyle gösterilmiştir.",
+        },
+        {
+          question: "Öznitelik Yönlendirmesi’nin avantajı nedir?",
+          options: [
+            "A) Daha az esneklik sağlar",
+            "B) Rotaları kontrolcü ve eylemler üzerinde tanımlayarak daha fazla kontrol sunar",
+            "C) Yalnızca basit uygulamalar için uygundur",
+            "D) URL yapısını merkezi olarak zorlar",
+            "E) Performansı düşürür",
+          ],
+          correct:
+            "B) Rotaları kontrolcü ve eylemler üzerinde tanımlayarak daha fazla kontrol sunar",
+          explanation:
+            "Öznitelik Yönlendirmesi, rotaları kontrolcü ve eylemler üzerinde özniteliklerle tanımlayarak esneklik ve kontrol sağlar. Week 4 materyalinde (sayfa 25), bu avantaj belirtilmiştir.",
+        },
+        {
+          question: "Geleneksel Yönlendirme’de varsayılan rota deseni nedir?",
+          options: [
+            "A) {controller}/{action}/{id?}",
+            "B) api/[controller]/{id}",
+            "C) {action}/{controller}/{id}",
+            "D) {id}/{controller}/{action}",
+            "E) [controller]/{action}",
+          ],
+          correct: "A) {controller}/{action}/{id?}",
+          explanation:
+            "Geleneksel Yönlendirme’de varsayılan rota deseni {controller}/{action}/{id?} şeklindedir. Week 4 materyalinde (sayfa 23), bu desen açıklanmıştır.",
+        },
+        {
+          question:
+            "Öznitelik Yönlendirmesi’nde [HttpGet] özniteliği neyi belirtir?",
+          options: [
+            "A) POST isteklerini eşler",
+            "B) GET isteklerini eşler",
+            "C) DELETE isteklerini eşler",
+            "D) Tüm HTTP metotlarını eşler",
+            "E) Yönlendirme parametrelerini kısıtlar",
+          ],
+          correct: "B) GET isteklerini eşler",
+          explanation:
+            "[HttpGet] özniteliği, GET isteklerini belirli bir eylemle eşlemek için kullanılır. Week 4 materyalinde (sayfa 25), bu öznitelik tanıtılmıştır.",
+        },
+        {
+          question: "Rota parametreleri nasıl tanımlanır?",
+          options: [
+            "A) Köşeli parantezler ile []",
+            "B) Kıvırcık parantezler ile {}",
+            "C) Parantezler ile ()",
+            "D) Çift tırnak ile “”",
+            "E) Tek tırnak ile ‘’",
+          ],
+          correct: "B) Kıvırcık parantezler ile {}",
+          explanation:
+            "Rota parametreleri, rota şablonlarında kıvırcık parantezler ({}) içinde tanımlanır, örneğin {id}. Week 4 materyalinde (sayfa 27), bu kullanım gösterilmiştir.",
+        },
+        {
+          question: "Rota kısıtlamalarının amacı nedir?",
+          options: [
+            "A) URL’lerin uzunluğunu artırmak",
+            "B) Rota parametrelerinin eşleşmesini belirli tiplerle kısıtlamak",
+            "C) Yönlendirme hızını artırmak",
+            "D) Bağımlılıkları enjekte etmek",
+            "E) HTTP metotlarını değiştirmek",
+          ],
+          correct:
+            "B) Rota parametrelerinin eşleşmesini belirli tiplerle kısıtlamak",
+          explanation:
+            "Rota kısıtlamaları, parametrelerin belirli tiplere (örneğin, int) uygun olmasını sağlar. Week 4 materyalinde (sayfa 28), bu amaç açıklanmıştır.",
+        },
+        {
+          question:
+            "Aşağıdaki rota kısıtlamalarından hangisi bir parametrenin tamsayı olmasını sağlar?",
+          options: [
+            "A) {id:guid}",
+            "B) {id:bool}",
+            "C) {id:int}",
+            "D) {id:regex}",
+            "E) {id:datetime}",
+          ],
+          correct: "C) {id:int}",
+          explanation:
+            "{id:int} kısıtlaması, id parametresinin tamsayı olmasını sağlar. Week 4 materyalinde (sayfa 28), yaygın kısıtlamalar listelenmiştir.",
+        },
+        {
+          question:
+            "Rota şablonlarında isteğe bağlı parametre nasıl belirtilir?",
+          options: [
+            "A) Parametre adından sonra ! ile",
+            "B) Parametre adından sonra ? ile",
+            "C) Parametre adından sonra * ile",
+            "D) Parametre adından sonra & ile",
+            "E) Parametre adından sonra = ile",
+          ],
+          correct: "B) Parametre adından sonra ? ile",
+          explanation:
+            "İsteğe bağlı parametreler, rota şablonunda parametre adından sonra ? ile belirtilir, örneğin {id?}. Week 4 materyalinde (sayfa 30), bu özellik açıklanmıştır.",
+        },
+        {
+          question: "IUrlHelper’ın temel amacı nedir?",
+          options: [
+            "A) Servisleri DI Konteynerine kaydetmek",
+            "B) Rotalara göre dinamik URL’ler oluşturmak",
+            "C) HTTP isteklerini yönlendirmek",
+            "D) Bağımlılıkları çözümlemek",
+            "E) Veritabanı bağlantılarını yönetmek",
+          ],
+          correct: "B) Rotalara göre dinamik URL’ler oluşturmak",
+          explanation:
+            "IUrlHelper, rotalara dayalı olarak dinamik URL’ler oluşturmak için kullanılır. Week 4 materyalinde (sayfa 32), bu işlev detaylandırılmıştır.",
+        },
+        {
+          question:
+            "Singleton servislerde dikkat edilmesi gereken bir durum nedir?",
+          options: [
+            "A) Her istekte yeni bir örnek oluşturulur",
+            "B) Değiştirilebilir paylaşılan durumda iş parçacığı güvenliği",
+            "C) HTTP isteği başına bir kez oluşturulur",
+            "D) Test edilebilirliği azaltır",
+            "E) Hafif işlemler için uygundur",
+          ],
+          correct:
+            "B) Değiştirilebilir paylaşılan durumda iş parçacığı güvenliği",
+          explanation:
+            "Singleton servisler tüm istekler arasında paylaşıldığı için, değiştirilebilir durumda iş parçacığı güvenliğine dikkat edilmelidir. Week 4 materyalinde (sayfa 11), bu uyarı verilmiştir.",
+        },
+        {
+          question: "Hangi yaşam döngüsü veritabanı bağlamları için idealdir?",
+          options: [
+            "A) Transient",
+            "B) Scoped",
+            "C) Singleton",
+            "D) Static",
+            "E) Disposable",
+          ],
+          correct: "B) Scoped",
+          explanation:
+            "Scoped yaşam döngüsü, HTTP isteği içinde durum koruması gereken veritabanı bağlamları (örneğin, DbContext) için idealdir. Week 4 materyalinde (sayfa 8), bu kullanım örneği verilmiştir.",
+        },
+        {
+          question:
+            "Geleneksel ve Öznitelik Yönlendirmesi arasındaki temel fark nedir?",
+          options: [
+            "A) Geleneksel yönlendirme daha fazla kontrol sağlar",
+            "B) Öznitelik yönlendirme Program.cs’de tanımlanır",
+            "C) Geleneksel yönlendirme merkezi bir konumda, öznitelik yönlendirme ise kontrolcülerde tanımlanır",
+            "D) Öznitelik yönlendirme yalnızca GET isteklerini destekler",
+            "E) Geleneksel yönlendirme parametreleri desteklemez",
+          ],
+          correct:
+            "C) Geleneksel yönlendirme merkezi bir konumda, öznitelik yönlendirme ise kontrolcülerde tanımlanır",
+          explanation:
+            "Geleneksel Yönlendirme Program.cs’de merkezi olarak, Öznitelik Yönlendirme ise kontrolcü ve eylemler üzerinde tanımlanır. Week 4 materyalinde (sayfa 22), bu fark belirtilmiştir.",
+        },
+        {
+          question: "Rota şablonlarında literal segment neyi ifade eder?",
+          options: [
+            "A) Değişken bir parametreyi",
+            "B) URL’nin sabit bir kısmını",
+            "C) İsteğe bağlı bir değeri",
+            "D) Kısıtlanmış bir tipi",
+            "E) Dinamik bir bağlantıyı",
+          ],
+          correct: "B) URL’nin sabit bir kısmını",
+          explanation:
+            "Literal segmentler, rota şablonlarında URL’nin sabit kısımlarını (örneğin, ‘api’) ifade eder. Week 4 materyalinde (sayfa 30), bu tanım verilmiştir.",
+        },
+        {
+          question: "Hangi yöntem kontrolcüde URL oluşturmak için kullanılır?",
+          options: [
+            "A) Url.Action",
+            "B) Route.Map",
+            "C) Http.Get",
+            "D) Service.Generate",
+            "E) Endpoint.Create",
+          ],
+          correct: "A) Url.Action",
+          explanation:
+            "Url.Action metodu, IUrlHelper aracılığıyla kontrolcüde belirli bir eyleme URL oluşturmak için kullanılır. Week 4 materyalinde (sayfa 33), bu yöntem örneğiyle gösterilmiştir.",
+        },
+        {
+          question: "Transient servisler hangi durumda kaynak yoğun olabilir?",
+          options: [
+            "A) HTTP isteği başına bir kez oluşturulduğunda",
+            "B) Oluşturma maliyeti yüksekse ve sıkça istenirse",
+            "C) Uygulama genelinde paylaşıldığında",
+            "D) Durum koruması gerektiğinde",
+            "E) Test sırasında kullanıldığında",
+          ],
+          correct: "B) Oluşturma maliyeti yüksekse ve sıkça istenirse",
+          explanation:
+            "Transient servisler her istendiğinde yeni örnek oluşturduğu için, oluşturma maliyeti yüksekse kaynak yoğun olabilir. Week 4 materyalinde (sayfa 5), bu durum belirtilmiştir.",
+        },
+        {
+          question: "Yönlendirme ara yazılımı sırasının önemi nedir?",
+          options: [
+            "A) Performansı artırmak için",
+            "B) UseRouting ve UseEndpoints’in doğru sırada olması gerektiği için",
+            "C) Bağımlılıkları enjekte etmek için",
+            "D) Yalnızca geliştirme ortamında önemlidir",
+            "E) Servis yaşam döngüsünü etkiler",
+          ],
+          correct:
+            "B) UseRouting ve UseEndpoints’in doğru sırada olması gerektiği için",
+          explanation:
+            "Yönlendirme ara yazılımı (UseRouting ve UseEndpoints) doğru sırada olmalıdır, yoksa eşleştirme başarısız olabilir. Week 4 materyalinde (sayfa 35), bu sorun hata ayıklama bölümünde vurgulanmıştır.",
+        },
+        {
+          question:
+            "Hangi DI yöntemi bir sınıfın bağımlılıklarını açıkça gösterir?",
+          options: [
+            "A) Özellik Enjeksiyonu",
+            "B) Metot Enjeksiyonu",
+            "C) Yapıcı Enjeksiyonu",
+            "D) Manuel Çözümleme",
+            "E) Statik Enjeksiyon",
+          ],
+          correct: "C) Yapıcı Enjeksiyonu",
+          explanation:
+            "Yapıcı Enjeksiyonu, bağımlılıkları yapıcının parametrelerinde açıkça göstererek netlik sağlar. Week 4 materyalinde (sayfa 13), bu avantaj vurgulanmıştır.",
+        },
       ];
 
       let currentModel = modelA;
