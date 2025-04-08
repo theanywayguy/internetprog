@@ -137,9 +137,10 @@
     <h1>İnternet Programlama Sınavı - Örnek Test</h1>
     <div id="container">
       <select id="model-select" onchange="changeModel()">
-        <option value="A">Model A</option>
-        <option value="B">Model B</option>
-        <option value="C">Model C</option>
+        <option value="A">Model A(good)</option>
+        <option value="B">Model B(meduim)</option>
+        <option value="C">Model C(easy)</option>
+        <option value="D">Model D(newest)</option>
       </select>
       <div id="question-container"></div>
       <div id="result"></div>
@@ -1577,6 +1578,1972 @@
             "PATCH metodu, bir kaynakta yalnızca belirtilen kısımları güncellemek için kullanılırken, PUT metodu tüm kaynağı değiştirir veya yeni bir kaynak oluşturur. PATCH genellikle daha verimlidir çünkü sadece değişen verileri gönderir.",
         },
       ];
+      const modelD = [
+        {
+          question: "İstemci-Sunucu Modeli’nde istemcinin temel rolü nedir?",
+          options: [
+            "A) İstekleri dinler ve yanıtlar gönderir",
+            "B) Bir sunucudan hizmet veya kaynak ister",
+            "C) Veritabanı sorgularını işler ve sonuçları saklar",
+            "D) Ağ protokollerini tanımlayarak iletişimi düzenler",
+            "E) Yanıtları şifreleyerek güvenliği sağlar",
+          ],
+          correct: "B) Bir sunucudan hizmet veya kaynak ister",
+          explanation:
+            "İstemci-Sunucu Modeli’nde istemci, bir sunucudan hizmet veya kaynak talep eden bir uygulama veya sistemdir. Örneğin, bir web tarayıcısı (istemci) bir web sunucusundan web sayfası içeriği isteğinde bulunur. Sunucu ise bu isteklere yanıt verir. Bu temel ayrım, Week 1 materyalinde (sayfa 2) istemci-sunucu mimarisinin tanımı ve örnekleriyle açıkça belirtilmiştir.",
+        },
+        {
+          question: "HTTP’nin durumsuz (stateless) doğası ne anlama gelir?",
+          options: [
+            "A) Sunucu, istemci istekleri arasında oturum bilgisi saklar",
+            "B) Her istek, önceki isteklerden bağımsız olarak işlenir",
+            "C) İstemci, sunucuya yalnızca bir kez istek gönderebilir",
+            "D) Sunucu, istemcinin kimliğini otomatik olarak tanır",
+            "E) İstekler sırayla işlenmez",
+          ],
+          correct: "B) Her istek, önceki isteklerden bağımsız olarak işlenir",
+          explanation:
+            "HTTP’nin durumsuzluğu, her istemci isteğinin sunucu tarafından önceki isteklerden bağımsız bir işlem olarak ele alındığını ifade eder. Sunucu, oturum bilgisi tutmaz; her istek tüm gerekli bilgileri içermelidir. Bu, Week 1 materyalinde (sayfa 5) HTTP’nin durumsuzluğu başlığı altında detaylıca açıklanmıştır.",
+        },
+        {
+          question: "TCP/IP yığınında Uygulama Katmanı’nın temel işlevi nedir?",
+          options: [
+            "A) Veri paketlerinin yönlendirilmesini sağlar",
+            "B) Fiziksel adresleme ve veri çerçevelemesi yapar",
+            "C) Kullanıcı uygulamalarına ağ hizmetleri sunar",
+            "D) Veri akışını sıralı ve güvenilir hale getirir",
+            "E) IP adreslerini fiziksel adreslere çevirir",
+          ],
+          correct: "C) Kullanıcı uygulamalarına ağ hizmetleri sunar",
+          explanation:
+            "TCP/IP yığınında Uygulama Katmanı, en üst katmandır ve uygulamalarla doğrudan etkileşim kurarak ağ hizmetleri sağlar. HTTP, SMTP gibi protokoller bu katmanda çalışır. Bu, Week 1 materyalinde (sayfa 6) TCP/IP yığınının katmanları açıklanırken belirtilmiştir.",
+        },
+        {
+          question: "İstek-Yanıt Döngüsü’nde sunucunun ikinci adımı nedir?",
+          options: [
+            "A) İstemciye yanıt gönderir",
+            "B) İsteği alır ve işler",
+            "C) İstemciden istek bekler",
+            "D) Veriyi şifreler",
+            "E) İstek için bir protokol tanımlar",
+          ],
+          correct: "B) İsteği alır ve işler",
+          explanation:
+            "İstek-Yanıt Döngüsü’nde ikinci adım, sunucunun istemciden gelen isteği alması ve işlemesidir. Bu, veritabanından veri alma veya mantık yürütme gibi işlemleri içerebilir. Week 1 materyalinde (sayfa 3) bu döngü adım adım açıklanmıştır.",
+        },
+        {
+          question:
+            "Aşağıdakilerden hangisi istemci-sunucu etkileşimine bir örnektir?",
+          options: [
+            "A) Bir web tarayıcısının bir web sayfasını istemesi",
+            "B) Bir sunucunun istemciye kendiliğinden veri göndermesi",
+            "C) İki sunucunun birbirine veri aktarması",
+            "D) Bir istemcinin ağ protokollerini tanımlaması",
+            "E) Bir veritabanının kendi kendine güncellenmesi",
+          ],
+          correct: "A) Bir web tarayıcısının bir web sayfasını istemesi",
+          explanation:
+            "İstemci-sunucu etkileşiminde istemci bir istek başlatır ve sunucu yanıt verir. Web tarayıcısının bir web sayfasını istemesi, bu modelin günlük bir örneğidir ve Week 1 materyalinde (sayfa 2) ‘Web’de Gezinme’ örneğiyle açıklanmıştır.",
+        },
+        {
+          question: "HTTP metotlarından ‘GET’ hangi amaçla kullanılır?",
+          options: [
+            "A) Bir kaynağı güncellemek için",
+            "B) Bir sunucudan veri almak için",
+            "C) Bir kaynağı silmek için",
+            "D) Bir sunucuya veri göndermek için",
+            "E) Bir kaynağa kısmi değişiklik yapmak için",
+          ],
+          correct: "B) Bir sunucudan veri almak için",
+          explanation:
+            "‘GET’ metodu, bir sunucudan veri almak için kullanılır ve salt okunur işlemler için uygundur. Güvenli ve idempotenttir. Bu, Week 1 materyalinde (sayfa 10) HTTP metotları bölümünde açıklanmıştır.",
+        },
+        {
+          question: "Ağ protokolleri arasında TCP’nin temel farkı nedir?",
+          options: [
+            "A) Hızlı ama güvenilir değildir",
+            "B) Bağlantı odaklı ve güvenilirdir",
+            "C) Fiziksel iletimi yönetir",
+            "D) Yönlendirme işlemlerini yapar",
+            "E) Şifreleme sağlar",
+          ],
+          correct: "B) Bağlantı odaklı ve güvenilirdir",
+          explanation:
+            "TCP (İletim Kontrol Protokolü), Taşıma Katmanı’nda çalışır ve verilerin sıralı, hatasız teslimini sağlar. Bağlantı odaklıdır ve güvenilirliğiyle UDP’den ayrılır. Week 1 materyalinde (sayfa 6) TCP/IP yığını açıklanırken belirtilmiştir.",
+        },
+        {
+          question: "C# dilinde değişken tanımlarken ne gereklidir?",
+          options: [
+            "A) Yalnızca değişken adı",
+            "B) Veri türü ve değişken adı",
+            "C) Yalnızca veri türü",
+            "D) Değişken adı ve operatör",
+            "E) Değişken adı ve yorum satırı",
+          ],
+          correct: "B) Veri türü ve değişken adı",
+          explanation:
+            "C#, kesin tipli bir dildir ve değişken tanımlarken veri türünün (örneğin, int, string) ve değişken adının belirtilmesi zorunludur. Bu, Week 1 materyalinde (sayfa 21) C# veri türleri ve değişkenler bölümünde açıklanmıştır.",
+        },
+        {
+          question: "HTTPS’nin temel farkı nedir?",
+          options: [
+            "A) Daha hızlı veri aktarımı sağlar",
+            "B) HTTP’yi şifreleyerek güvenli iletişim sunar",
+            "C) Durumlu bir protokoldür",
+            "D) Yalnızca istemci tarafında çalışır",
+            "E) Daha az başlık içerir",
+          ],
+          correct: "B) HTTP’yi şifreleyerek güvenli iletişim sunar",
+          explanation:
+            "HTTPS, HTTP’nin güvenli sürümüdür ve SSL/TLS ile şifreleme yaparak gizlilik, kimlik doğrulama ve veri bütünlüğü sağlar. Week 1 materyalinde (sayfa 12) HTTPS başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question: ".NET Core’un platformlar arası doğası neyi ifade eder?",
+          options: [
+            "A) Yalnızca Windows’ta çalışır",
+            "B) Windows, macOS ve Linux’ta çalışabilir",
+            "C) Yalnızca web uygulamaları için uygundur",
+            "D) Daha az performans sunar",
+            "E) Kapalı kaynak bir framework’tür",
+          ],
+          correct: "B) Windows, macOS ve Linux’ta çalışabilir",
+          explanation:
+            ".NET Core, platformlar arası bir framework’tür ve farklı işletim sistemlerinde çalışabilir. Bu, Week 1 materyalinde (sayfa 23) .NET Core’un tanıtımı ve faydaları kısmında belirtilmiştir.",
+        },
+        {
+          question: "DNS’nin temel amacı nedir?",
+          options: [
+            "A) Verileri şifrelemek",
+            "B) Alan adlarını IP adreslerine çevirmek",
+            "C) HTTP isteklerini yönlendirmek",
+            "D) Port numaralarını tanımlamak",
+            "E) Sunucu yanıtlarını hızlandırmak",
+          ],
+          correct: "B) Alan adlarını IP adreslerine çevirmek",
+          explanation:
+            "DNS (Alan Adı Sistemi), insan tarafından okunabilir alan adlarını (örneğin, www.example.com) makine tarafından okunabilir IP adreslerine çevirir. Bu, Week 1 materyalinde (sayfa 12) DNS başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "IPv6’nın IPv4’e göre en büyük avantajı nedir?",
+          options: [
+            "A) Daha az adres alanı sunar",
+            "B) Daha geniş adres alanı sağlar",
+            "C) Daha az güvenli bir yapıdadır",
+            "D) Daha yavaş çalışır",
+            "E) Fiziksel adresleme yapar",
+          ],
+          correct: "B) Daha geniş adres alanı sağlar",
+          explanation:
+            "IPv6, 128-bit adreslerle IPv4’ün 32-bit adreslerine kıyasla çok daha büyük bir adres alanı sunar (340 undesilyon adres). Bu, Week 1 materyalinde (sayfa 14) IPv4 - IPv6 karşılaştırmasında vurgulanmıştır.",
+        },
+        {
+          question: "Port numaralarının temel amacı nedir?",
+          options: [
+            "A) Cihazları fiziksel olarak adreslemek",
+            "B) Veri şifrelemesini sağlamak",
+            "C) Bir cihazda çalışan hizmetleri tanımlamak",
+            "D) Ağ katmanlarını birleştirmek",
+            "E) IP adreslerini saklamak",
+          ],
+          correct: "C) Bir cihazda çalışan hizmetleri tanımlamak",
+          explanation:
+            "Port numaraları, bir cihazda çalışan belirli süreçleri veya hizmetleri tanımlar (örneğin, HTTP için 80). Bu, Week 1 materyalinde (sayfa 16) port numaraları bölümünde açıklanmıştır.",
+        },
+        {
+          question: "Soket programlamada istemci soketinin ilk adımı nedir?",
+          options: [
+            "A) Bağlantıları dinlemek",
+            "B) İstemci soketi oluşturmak",
+            "C) Sunucudan yanıt almak",
+            "D) Veritabanına bağlanmak",
+            "E) Port numarasını kapatmak",
+          ],
+          correct: "B) İstemci soketi oluşturmak",
+          explanation:
+            "Soket programlamada istemci, önce bir soket oluşturur, ardından sunucuya bağlanır. Bu, Week 1 materyalinde (sayfa 18) kavramsal soket iletişim akışında belirtilmiştir.",
+        },
+        {
+          question: "HTTP durum kodu ‘404’ neyi ifade eder?",
+          options: [
+            "A) İstek başarılı",
+            "B) Kaynak bulunamadı",
+            "C) Sunucu hatası",
+            "D) Yönlendirme gerekiyor",
+            "E) Yetkisiz erişim",
+          ],
+          correct: "B) Kaynak bulunamadı",
+          explanation:
+            "HTTP durum kodu ‘404’, istemcinin istediği kaynağın sunucuda bulunamadığını gösterir. Bu, Week 1 materyalinde (sayfa 11) HTTP durum kodları bölümünde açıklanmıştır.",
+        },
+        {
+          question:
+            "TCP/IP yığınında Internet Katmanı’nın temel protokolü hangisidir?",
+          options: ["A) HTTP", "B) TCP", "C) IP", "D) UDP", "E) DNS"],
+          correct: "C) IP",
+          explanation:
+            "Internet Katmanı, veri paketlerinin yönlendirilmesinden sorumludur ve temel protokolü IP’dir (Internet Protokolü). Bu, Week 1 materyalinde (sayfa 7) TCP/IP yığını katmanlarında belirtilmiştir.",
+        },
+        {
+          question: "C#’ta ‘int’ veri türü neyi temsil eder?",
+          options: [
+            "A) Metin dizilerini",
+            "B) Tamsayı sayıları",
+            "C) Ondalık sayıları",
+            "D) Boole değerlerini",
+            "E) Tarih ve saati",
+          ],
+          correct: "B) Tamsayı sayıları",
+          explanation:
+            "C#’ta ‘int’ veri türü, tamsayı sayıları (örneğin, -10, 0, 5) temsil eder. Bu, Week 1 materyalinde (sayfa 21) veri türleri bölümünde açıklanmıştır.",
+        },
+        {
+          question: "HTTP isteğinin gövdesi hangi durumlarda isteğe bağlıdır?",
+          options: [
+            "A) GET isteğinde",
+            "B) POST isteğinde",
+            "C) DELETE isteğinde",
+            "D) OPTIONS isteğinde",
+            "E) HEAD isteğinde",
+          ],
+          correct: "B) POST isteğinde",
+          explanation:
+            "HTTP isteğinin gövdesi, genellikle veri gönderen metotlarda (örneğin, POST) kullanılır ve isteğe bağlıdır. GET gibi metotlarda gövde tipik olarak yoktur. Bu, Week 1 materyalinde (sayfa 8) HTTP istek yapısı bölümünde belirtilmiştir.",
+        },
+        {
+          question: "‘Content-Type’ başlığı neyi belirtir?",
+          options: [
+            "A) İsteğin hedef sunucusunu",
+            "B) Yanıt gövdesinin medya türünü",
+            "C) İstemcinin dil tercihini",
+            "D) Yanıtın oluşturulma tarihini",
+            "E) Önbellekleme yönergelerini",
+          ],
+          correct: "B) Yanıt gövdesinin medya türünü",
+          explanation:
+            "‘Content-Type’ başlığı, yanıt gövdesinin medya türünü (örneğin, ‘text/html’, ‘application/json’) belirtir. Bu, Week 1 materyalinde (sayfa 11) yaygın HTTP başlıkları bölümünde açıklanmıştır.",
+        },
+        {
+          question: "DNS çözümleme sürecinde ilk adım nedir?",
+          options: [
+            "A) Kök DNS sunucusuna sorgu",
+            "B) İstemciden DNS sorgusu",
+            "C) TLD sunucusuna yönlendirme",
+            "D) IP adresinin önbelleğe alınması",
+            "E) Yetkili ad sunucusuna sorgu",
+          ],
+          correct: "B) İstemciden DNS sorgusu",
+          explanation:
+            "DNS çözümleme süreci, istemcinin bir alan adı için IP adresini bulmak üzere DNS çözümleyicisine sorgu göndermesiyle başlar. Bu, Week 1 materyalinde (sayfa 13) DNS çözümleme adımlarıyla detaylandırılmıştır.",
+        },
+        {
+          question: "IPv4 adres yapısı nasıl gösterilir?",
+          options: [
+            "A) Onaltılık gösterimle",
+            "B) Noktalı ondalık gösterimle",
+            "C) İkili gösterimle",
+            "D) Harf ve rakam kombinasyonuyla",
+            "E) Yalnızca rakamsal dizilerle",
+          ],
+          correct: "B) Noktalı ondalık gösterimle",
+          explanation:
+            "IPv4 adresleri, 32-bit uzunluğunda olup noktalı ondalık gösterimle yazılır (örneğin, 192.168.1.1). Bu, Week 1 materyalinde (sayfa 14) IPv4 adres yapısı kısmında belirtilmiştir.",
+        },
+        {
+          question: "‘User-Agent’ başlığı neyi tanımlar?",
+          options: [
+            "A) Sunucunun alan adını",
+            "B) İstemci yazılımını ve sistemini",
+            "C) Yanıtın içerik uzunluğunu",
+            "D) Önbellekleme yönergelerini",
+            "E) İsteğin tarihini",
+          ],
+          correct: "B) İstemci yazılımını ve sistemini",
+          explanation:
+            "‘User-Agent’ başlığı, isteği yapan istemci yazılımını (örneğin, tarayıcı) ve işletim sistemini tanımlar. Bu, Week 1 materyalinde (sayfa 11) HTTP başlıkları bölümünde açıklanmıştır.",
+        },
+        {
+          question: "HTTP metodu ‘DELETE’ neyi ifade eder?",
+          options: [
+            "A) Bir kaynağı almak",
+            "B) Bir kaynağı silmek",
+            "C) Bir kaynağı güncellemek",
+            "D) Bir sunucuya veri göndermek",
+            "E) İletişim seçeneklerini sormak",
+          ],
+          correct: "B) Bir kaynağı silmek",
+          explanation:
+            "‘DELETE’ metodu, bir URI tarafından tanımlanan bir kaynağı silmek için kullanılır. Güvenli değildir ama idempotenttir. Bu, Week 1 materyalinde (sayfa 10) HTTP metotları bölümünde belirtilmiştir.",
+        },
+        {
+          question: "İyi bilinen portlar hangi aralıkta bulunur?",
+          options: [
+            "A) 1024-49151",
+            "B) 49152-65535",
+            "C) 0-1023",
+            "D) 10000-20000",
+            "E) 80-443",
+          ],
+          correct: "C) 0-1023",
+          explanation:
+            "İyi bilinen portlar, yaygın hizmetler için ayrılmış olup 0-1023 aralığındadır (örneğin, HTTP: 80). Bu, Week 1 materyalinde (sayfa 16) port numaraları bölümünde açıklanmıştır.",
+        },
+        {
+          question: "Soket programlamada sunucu soketinin temel işlevi nedir?",
+          options: [
+            "A) Sunucuya bağlanmak",
+            "B) Bağlantıları dinlemek",
+            "C) Veriyi şifrelemek",
+            "D) IP adresini çözmek",
+            "E) İstemciye veri göndermek",
+          ],
+          correct: "B) Bağlantıları dinlemek",
+          explanation:
+            "Sunucu soketleri, istemcilerden gelen bağlantıları dinler ve kabul eder. Bu, Week 1 materyalinde (sayfa 18) soket iletişim akışında belirtilmiştir.",
+        },
+        {
+          question:
+            ".NET Core ile konsol uygulaması oluşturmak için hangi komut kullanılır?",
+          options: [
+            "A) dotnet build",
+            "B) dotnet run",
+            "C) dotnet new console",
+            "D) dotnet publish",
+            "E) dotnet start",
+          ],
+          correct: "C) dotnet new console",
+          explanation:
+            ".NET Core’da yeni bir konsol uygulaması oluşturmak için ‘dotnet new console’ komutu kullanılır. Bu, Week 1 materyalinde (sayfa 25) konsol uygulaması oluşturma adımlarında açıklanmıştır.",
+        },
+        {
+          question: "TCP/IP yığınında kapsülleme sürecinde ne olur?",
+          options: [
+            "A) Veriler şifrelenir",
+            "B) Her katman veriye kendi başlığını ekler",
+            "C) Veriler fiziksel olarak iletilir",
+            "D) Veriler sıralı hale getirilir",
+            "E) IP adresleri çözümlenir",
+          ],
+          correct: "B) Her katman veriye kendi başlığını ekler",
+          explanation:
+            "Kapsülleme, TCP/IP yığınında verilerin her katmanda başlıklarla sarılması sürecidir. Bu, Week 1 materyalinde (sayfa 7) kapsülleme açıklamasında detaylandırılmıştır.",
+        },
+        {
+          question: "HTTP durum kodu ‘200’ neyi gösterir?",
+          options: [
+            "A) İstek başarısız",
+            "B) İstek başarılı",
+            "C) Kaynak taşınmış",
+            "D) İstemci hatası",
+            "E) Sunucu hatası",
+          ],
+          correct: "B) İstek başarılı",
+          explanation:
+            "HTTP durum kodu ‘200 OK’, isteğin başarılı olduğunu ve sunucunun istenen kaynağı döndürdüğünü gösterir. Bu, Week 1 materyalinde (sayfa 11) HTTP durum kodları bölümünde belirtilmiştir.",
+        },
+        {
+          question: "C#’ta mantıksal ‘VE’ operatörü hangisidir?",
+          options: ["A) ||", "B) &&", "C) !", "D) ==", "E) !="],
+          correct: "B) &&",
+          explanation:
+            "C#’ta mantıksal ‘VE’ operatörü ‘&&’ ile temsil edilir ve iki koşulun da doğru olması durumunda true döner. Bu, Week 1 materyalinde (sayfa 23) mantıksal operatörler örneğinde açıklanmıştır.",
+        },
+        {
+          question: "İnternet Programlama’nın temel amacı nedir?",
+          options: [
+            "A) Donanım tasarımı yapmak",
+            "B) İnternet üzerinden uygulamalar geliştirmek",
+            "C) Fiziksel ağları kurmak",
+            "D) Veritabanı yönetimini sağlamak",
+            "E) İşletim sistemi geliştirmek",
+          ],
+          correct: "B) İnternet üzerinden uygulamalar geliştirmek",
+          explanation:
+            "İnternet Programlama, internet üzerinden çalışan uygulamalar geliştirme sürecidir ve dünya çapında iletişimi mümkün kılar. Bu, Week 1 materyalinde (sayfa 1) ‘İnternet Programlama Nedir?’ başlığı altında tanımlanmıştır.",
+        },
+
+        {
+          question: "Sürüm kontrolü nedir?",
+          options: [
+            "A) Kodun yalnızca son halini saklayan bir sistem",
+            "B) Dosyalardaki değişiklikleri zaman içinde kaydeden bir sistem",
+            "C) Yazılım projelerini şifreleyen bir araç",
+            "D) Yalnızca tek bir geliştiricinin kullanabileceği bir yapı",
+            "E) Kodun fiziksel yedeğini oluşturan bir donanım",
+          ],
+          correct:
+            "B) Dosyalardaki değişiklikleri zaman içinde kaydeden bir sistem",
+          explanation:
+            "Sürüm kontrolü, bir dosya veya dosya kümesindeki değişiklikleri zaman içinde kaydederek belirli sürümleri geri çağırabilmenizi sağlar. Week 2 materyalinde (sayfa 1), sürüm kontrolü 'kodunuz için detaylı bir tarih kitabı' olarak tanımlanmıştır.",
+        },
+        {
+          question: "Sürüm kontrolünün temel faydalarından biri hangisidir?",
+          options: [
+            "A) Kodun yalnızca tek bir sürümünü tutar",
+            "B) Birden fazla geliştiricinin aynı anda çalışmasını sağlar",
+            "C) Kodun derlenmesini hızlandırır",
+            "D) Yalnızca yerel depolarda çalışır",
+            "E) Donanım arızalarını önler",
+          ],
+          correct:
+            "B) Birden fazla geliştiricinin aynı anda çalışmasını sağlar",
+          explanation:
+            "Sürüm kontrolü, işbirliğini mümkün kılar ve birden fazla geliştiricinin aynı proje üzerinde birbirlerinin çalışmalarını bozmadan çalışmasına olanak tanır. Bu, Week 2 materyalinde (sayfa 2) 'İşbirliği' başlığı altında açıklanmıştır.",
+        },
+        {
+          question:
+            "Merkezi Sürüm Kontrol Sistemleri’nin (MSKS) en büyük sınırlaması nedir?",
+          options: [
+            "A) Hızlı işlemler sunar",
+            "B) Tek hata noktasına sahiptir",
+            "C) Esnek dallanma sağlar",
+            "D) Yerel depolarda çalışır",
+            "E) İşbirliğini engeller",
+          ],
+          correct: "B) Tek hata noktasına sahiptir",
+          explanation:
+            "Merkezi Sürüm Kontrol Sistemleri’nde (MSKS) tek bir merkezi sunucu bulunur ve bu sunucu çökerse kimse çalışamaz. Bu, Week 2 materyalinde (sayfa 3) MSKS’nin sınırlamaları olarak belirtilmiştir.",
+        },
+        {
+          question: "Git hangi tür sürüm kontrol sistemidir?",
+          options: [
+            "A) Merkezi Sürüm Kontrol Sistemi",
+            "B) Dağıtık Sürüm Kontrol Sistemi",
+            "C) Hibrit Sürüm Kontrol Sistemi",
+            "D) Yerel Sürüm Kontrol Sistemi",
+            "E) Bulut Sürüm Kontrol Sistemi",
+          ],
+          correct: "B) Dağıtık Sürüm Kontrol Sistemi",
+          explanation:
+            "Git, her geliştiricinin yerel bir depo ile çalıştığı ve tüm sürüm geçmişini içerdiği bir Dağıtık Sürüm Kontrol Sistemi’dir (DSKS). Bu, Week 2 materyalinde (sayfa 3) açıkça belirtilmiştir.",
+        },
+        {
+          question: "Git’i kurduktan sonra ilk yapılandırma adımı nedir?",
+          options: [
+            "A) Yeni bir dal oluşturmak",
+            "B) Kullanıcı adı ve e-posta ayarlamak",
+            "C) Uzak depo eklemek",
+            "D) Değişiklikleri commit etmek",
+            "E) Depoyu klonlamak",
+          ],
+          correct: "B) Kullanıcı adı ve e-posta ayarlamak",
+          explanation:
+            "Git’in commit’leri kimliğinizle ilişkilendirmesi için kullanıcı adı ve e-posta adresini yapılandırmak gerekir. Bu, Week 2 materyalinde (sayfa 4) ‘Git Kullanıcı Adı ve E-postasını Yapılandırma’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "‘git init’ komutu ne yapar?",
+          options: [
+            "A) Uzak bir depoyu klonlar",
+            "B) Mevcut dizini bir Git deposuna dönüştürür",
+            "C) Değişiklikleri uzak depoya gönderir",
+            "D) Birleştirme çakışmalarını çözer",
+            "E) Yeni bir özellik dalı oluşturur",
+          ],
+          correct: "B) Mevcut dizini bir Git deposuna dönüştürür",
+          explanation:
+            "‘git init’ komutu, mevcut dizinde bir Git deposu başlatır ve .git klasörünü oluşturur. Bu, Week 2 materyalinde (sayfa 4) ‘Yerel Bir Depo Oluşturma’ bölümünde detaylandırılmıştır.",
+        },
+        {
+          question:
+            "Değişiklikleri hazırlamak için hangi Git komutu kullanılır?",
+          options: [
+            "A) git commit",
+            "B) git push",
+            "C) git add",
+            "D) git merge",
+            "E) git log",
+          ],
+          correct: "C) git add",
+          explanation:
+            "‘git add’ komutu, değişiklikleri hazırlama alanına (indeks) ekler ve bir sonraki commit’e dahil edilecek değişiklikleri seçmenizi sağlar. Week 2 materyalinde (sayfa 5) ‘Değişiklikleri Hazırlama’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question:
+            "Tüm değiştirilmiş dosyaları hazırlamak için hangi komut kullanılır?",
+          options: [
+            "A) git add <dosyaadı>",
+            "B) git add .",
+            "C) git commit -m",
+            "D) git push origin main",
+            "E) git branch",
+          ],
+          correct: "B) git add .",
+          explanation:
+            "‘git add .’ komutu, mevcut dizindeki ve alt dizinlerdeki tüm değiştirilmiş dosyaları hazırlar. Bu, Week 2 materyalinde (sayfa 6) ‘git add Komutunun Yaygın Kullanımları’ kısmında belirtilmiştir.",
+        },
+        {
+          question: "Bir commit mesajı yazarken en iyi uygulama nedir?",
+          options: [
+            "A) Uzun ve karmaşık bir mesaj yazmak",
+            "B) ‘Değişiklik yapıldı’ gibi genel bir ifade kullanmak",
+            "C) Özlü, açıklayıcı ve emredici kipte mesaj yazmak",
+            "D) Mesaj yazmayı tamamen atlamak",
+            "E) Yalnızca tarih bilgisi eklemek",
+          ],
+          correct: "C) Özlü, açıklayıcı ve emredici kipte mesaj yazmak",
+          explanation:
+            "Commit mesajları özlü, açıklayıcı olmalı ve emredici kipte yazılmalıdır (örneğin, ‘Özellik ekle’). Bu, Week 2 materyalinde (sayfa 7) ‘Commit Mesajları İçin En İyi Uygulamalar’ başlığı altında vurgulanmıştır.",
+        },
+        {
+          question:
+            "Commit geçmişini görüntülemek için hangi komut kullanılır?",
+          options: [
+            "A) git status",
+            "B) git log",
+            "C) git branch",
+            "D) git fetch",
+            "E) git remote",
+          ],
+          correct: "B) git log",
+          explanation:
+            "‘git log’ komutu, commit geçmişini ters kronolojik sırayla gösterir. Week 2 materyalinde (sayfa 8) ‘Commit Geçmişini Görüntüleme’ başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question: "‘git log --oneline’ neyi sağlar?",
+          options: [
+            "A) Commit farklarını detaylı gösterir",
+            "B) Commit’lerin tek satırlık özetini listeler",
+            "C) Yeni bir dal oluşturur",
+            "D) Uzak depodan değişiklik çeker",
+            "E) Çakışmaları çözer",
+          ],
+          correct: "B) Commit’lerin tek satırlık özetini listeler",
+          explanation:
+            "‘git log --oneline’ seçeneği, commit geçmişini kompakt, tek satırlık özetler halinde gösterir. Bu, Week 2 materyalinde (sayfa 8) ‘Yaygın git log Seçenekleri’ kısmında açıklanmıştır.",
+        },
+        {
+          question: "‘.gitignore’ dosyasının amacı nedir?",
+          options: [
+            "A) Commit mesajlarını saklar",
+            "B) Sürüm kontrolünden belirli dosyaları hariç tutar",
+            "C) Yeni dallar oluşturur",
+            "D) Uzak depoları listeler",
+            "E) Değişiklikleri birleştirir",
+          ],
+          correct: "B) Sürüm kontrolünden belirli dosyaları hariç tutar",
+          explanation:
+            "‘.gitignore’ dosyası, geçici dosyalar gibi sürüm kontrolüne dahil edilmemesi gereken dosyaları ve dizinleri belirtir. Week 2 materyalinde (sayfa 9) ‘Dosyaları Yoksayma’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "Yeni bir dal oluşturmak için hangi komut kullanılır?",
+          options: [
+            "A) git merge",
+            "B) git branch <dal-adı>",
+            "C) git add",
+            "D) git pull",
+            "E) git commit",
+          ],
+          correct: "B) git branch <dal-adı>",
+          explanation:
+            "‘git branch <dal-adı>’ komutu, yeni bir dal oluşturur ancak sizi o dala geçirmez. Bu, Week 2 materyalinde (sayfa 11) ‘Temel Dal İşlemleri’ kısmında belirtilmiştir.",
+        },
+        {
+          question: "Bir dala geçmek için hangi komut tercih edilir?",
+          options: [
+            "A) git branch",
+            "B) git switch <dal-adı>",
+            "C) git log",
+            "D) git push",
+            "E) git stash",
+          ],
+          correct: "B) git switch <dal-adı>",
+          explanation:
+            "‘git switch <dal-adı>’, modern Git’te dallar arasında geçiş yapmak için önerilen, daha odaklanmış bir komuttur. Week 2 materyalinde (sayfa 11) ‘Bir Dala Geç’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question:
+            "Yeni bir dal oluşturup hemen ona geçmek için hangi komut kullanılır?",
+          options: [
+            "A) git branch <dal-adı>",
+            "B) git checkout -b <dal-adı>",
+            "C) git merge",
+            "D) git add .",
+            "E) git remote add",
+          ],
+          correct: "B) git checkout -b <dal-adı>",
+          explanation:
+            "‘git checkout -b <dal-adı>’ komutu, yeni bir dal oluşturur ve hemen ona geçiş yapar. Week 2 materyalinde (sayfa 11) ‘Tek Komutta Yeni Bir Dal Oluşturun ve Ona Geçin’ kısmında belirtilmiştir.",
+        },
+        {
+          question: "Dalları birleştirmek için hangi komut kullanılır?",
+          options: [
+            "A) git branch",
+            "B) git merge <dal-adı>",
+            "C) git commit",
+            "D) git push",
+            "E) git log",
+          ],
+          correct: "B) git merge <dal-adı>",
+          explanation:
+            "‘git merge <dal-adı>’ komutu, bir daldaki değişiklikleri mevcut dala birleştirir. Week 2 materyalinde (sayfa 13) ‘Dalları Birleştirme’ başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question: "Birleştirme çakışması nasıl çözülür?",
+          options: [
+            "A) Otomatik olarak çözülür",
+            "B) Çakışan dosyaları manuel olarak düzenleyip commit edilir",
+            "C) Yeni bir dal oluşturulur",
+            "D) Uzak depodan çekilir",
+            "E) Değişiklikler silinir",
+          ],
+          correct:
+            "B) Çakışan dosyaları manuel olarak düzenleyip commit edilir",
+          explanation:
+            "Birleştirme çakışmaları, çakışan dosyalar manuel olarak düzenlenip ‘git add’ ve ‘git commit’ ile tamamlanır. Week 2 materyalinde (sayfa 14) ‘Birleştirme Çakışmalarını Çözme’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "Uzak depoların temel amacı nedir?",
+          options: [
+            "A) Yerel değişiklikleri silmek",
+            "B) İşbirliği ve yedekleme sağlamak",
+            "C) Kodun derlenmesini hızlandırmak",
+            "D) Dalları birleştirmek",
+            "E) Commit geçmişini gizlemek",
+          ],
+          correct: "B) İşbirliği ve yedekleme sağlamak",
+          explanation:
+            "Uzak depolar, işbirliğini kolaylaştırır ve kod tabanının bulutta yedeklenmesini sağlar. Week 2 materyalinde (sayfa 17) ‘Uzak Depolar’ başlığı altında belirtilmiştir.",
+        },
+        {
+          question:
+            "Uzak bir depoyu yerel makineye indirmek için hangi komut kullanılır?",
+          options: [
+            "A) git push",
+            "B) git clone <url>",
+            "C) git merge",
+            "D) git add",
+            "E) git branch",
+          ],
+          correct: "B) git clone <url>",
+          explanation:
+            "‘git clone <url>’ komutu, uzak bir deponun yerel kopyasını oluşturur. Week 2 materyalinde (sayfa 17) ‘Uzak Depoyu Klonlama’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question:
+            "Yerel bir depoya uzak depo eklemek için hangi komut kullanılır?",
+          options: [
+            "A) git remote add <ad> <url>",
+            "B) git pull",
+            "C) git fetch",
+            "D) git commit",
+            "E) git switch",
+          ],
+          correct: "A) git remote add <ad> <url>",
+          explanation:
+            "‘git remote add <ad> <url>’ komutu, yerel depoyu bir uzak depoya bağlar. Week 2 materyalinde (sayfa 18) ‘Uzak Depo Ekleme’ başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question:
+            "Yerel commit’leri uzak depoya göndermek için hangi komut kullanılır?",
+          options: [
+            "A) git pull",
+            "B) git push <uzak-adı> <dal-adı>",
+            "C) git fetch",
+            "D) git log",
+            "E) git stash",
+          ],
+          correct: "B) git push <uzak-adı> <dal-adı>",
+          explanation:
+            "‘git push <uzak-adı> <dal-adı>’ komutu, yerel commit’leri uzak depoya yükler. Week 2 materyalinde (sayfa 19) ‘Değişiklikleri Uzağa Gönderme’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question:
+            "Uzak depodan değişiklikleri çekmek için hangi komut kullanılır?",
+          options: [
+            "A) git push",
+            "B) git pull <uzak-adı> <dal-adı>",
+            "C) git add",
+            "D) git branch",
+            "E) git merge",
+          ],
+          correct: "B) git pull <uzak-adı> <dal-adı>",
+          explanation:
+            "‘git pull <uzak-adı> <dal-adı>’ komutu, uzak depodan değişiklikleri çeker ve yerel dala birleştirir. Week 2 materyalinde (sayfa 21) ‘Değişiklikleri Uzaktan Çekme’ başlığı altında belirtilmiştir.",
+        },
+        {
+          question: "‘git fetch’ ile ‘git pull’ arasındaki temel fark nedir?",
+          options: [
+            "A) git fetch değişiklikleri birleştirir, git pull getirmez",
+            "B) git fetch değişiklikleri getirir ama birleştirmez, git pull birleştirir",
+            "C) git fetch yerel dalı siler, git pull korur",
+            "D) git fetch yalnızca dalları listeler, git pull getirir",
+            "E) git fetch uzak depoları ekler, git pull kaldırır",
+          ],
+          correct:
+            "B) git fetch değişiklikleri getirir ama birleştirmez, git pull birleştirir",
+          explanation:
+            "‘git fetch’ değişiklikleri indirir ancak birleştirmez; ‘git pull’ ise getirir ve birleştirir. Week 2 materyalinde (sayfa 22) ‘Değişiklikleri Uzaktan Getirme’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "Uzak bağlantıları listelemek için hangi komut kullanılır?",
+          options: [
+            "A) git branch",
+            "B) git remote -v",
+            "C) git log",
+            "D) git commit",
+            "E) git switch",
+          ],
+          correct: "B) git remote -v",
+          explanation:
+            "‘git remote -v’ komutu, uzak bağlantıları URL’leriyle birlikte listeler. Week 2 materyalinde (sayfa 23) ‘Uzaklarla Çalışma’ başlığı altında belirtilmiştir.",
+        },
+        {
+          question: "Çatallama ve Çekme İsteği modeli hangi amaçla kullanılır?",
+          options: [
+            "A) Yerel depoları silmek",
+            "B) İşbirliğine dayalı katkı sağlamak",
+            "C) Kodun derlenmesini hızlandırmak",
+            "D) Dalları birleştirmek",
+            "E) Commit geçmişini gizlemek",
+          ],
+          correct: "B) İşbirliğine dayalı katkı sağlamak",
+          explanation:
+            "Çatallama ve Çekme İsteği modeli, açık kaynak projelerine veya dağıtık ekiplere katkı sağlamak için kullanılır. Week 2 materyalinde (sayfa 27) ‘İşbirliği İş Akışları’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "Özellik Dalı İş Akışı’nda ana dalın temel özelliği nedir?",
+          options: [
+            "A) Sürekli değişir",
+            "B) Kararlı ve üretime hazırdır",
+            "C) Yalnızca test için kullanılır",
+            "D) Uzak depolarla senkronize edilmez",
+            "E) Yeni özellikler için kullanılır",
+          ],
+          correct: "B) Kararlı ve üretime hazırdır",
+          explanation:
+            "Özellik Dalı İş Akışı’nda ana dal (main) kararlı ve üretime hazır tutulur. Week 2 materyalinde (sayfa 28) ‘Özellik Dalı İş Akışı Adımları’ kısmında belirtilmiştir.",
+        },
+        {
+          question: "Paylaşılan depolarda en iyi uygulama olarak ne önerilir?",
+          options: [
+            "A) Doğrudan ana dala commit yapmak",
+            "B) Özellik dalları kullanmak",
+            "C) Commit mesajlarını atlamak",
+            "D) Değişiklikleri nadiren göndermek",
+            "E) Kod incelemesini ihmal etmek",
+          ],
+          correct: "B) Özellik dalları kullanmak",
+          explanation:
+            "Paylaşılan depolarda özellik dalları kullanmak, ana dalın kararlı kalmasını sağlar. Week 2 materyalinde (sayfa 28) ‘Paylaşılan Depolar İçin En İyi Uygulamalar’ başlığı altında vurgulanmıştır.",
+        },
+        {
+          question: "Etiketleme (tagging) hangi amaçla kullanılır?",
+          options: [
+            "A) Değişiklikleri hazırlamak",
+            "B) Yayın noktalarını işaretlemek",
+            "C) Uzak depoları eklemek",
+            "D) Çakışmaları çözmek",
+            "E) Commit geçmişini silmek",
+          ],
+          correct: "B) Yayın noktalarını işaretlemek",
+          explanation:
+            "Etiketleme, yayın noktalarını (örneğin, v1.0) işaretlemek için kullanılır. Week 2 materyalinde (sayfa 29) ‘Etiketleme: Yayın Noktalarını İşaretleme’ başlığı altında açıklanmıştır.",
+        },
+        {
+          question: "Saklama (stashing) ne için kullanılır?",
+          options: [
+            "A) Değişiklikleri uzak depoya göndermek",
+            "B) Devam eden çalışmayı geçici olarak kaydetmek",
+            "C) Yeni bir dal oluşturmak",
+            "D) Commit geçmişini görüntülemek",
+            "E) Uzak bağlantıları listelemek",
+          ],
+          correct: "B) Devam eden çalışmayı geçici olarak kaydetmek",
+          explanation:
+            "Saklama, tamamlanmamış değişiklikleri geçici olarak kaydedip başka bir işe geçmenizi sağlar. Week 2 materyalinde (sayfa 30) ‘Saklama: Devam Eden Çalışmayı Geçici Olarak Kaydetme’ başlığı altında belirtilmiştir.",
+        },
+        {
+          question:
+            "Saklanmış değişiklikleri uygulamak ve saklama listesinden kaldırmak için hangi komut kullanılır?",
+          options: [
+            "A) git stash apply",
+            "B) git stash pop",
+            "C) git stash list",
+            "D) git stash clear",
+            "E) git stash push",
+          ],
+          correct: "B) git stash pop",
+          explanation:
+            "‘git stash pop’ komutu, saklanmış değişiklikleri uygular ve saklama listesinden kaldırır. Week 2 materyalinde (sayfa 31) ‘Saklanmış Değişiklikleri Uygulama’ başlığı altında açıklanmıştır.",
+        },
+
+        {
+          question: "HTTP nedir?",
+          options: [
+            "A) Bir programlama dili",
+            "B) World Wide Web'deki iletişimin omurgası olan protokol",
+            "C) Bir veritabanı yönetim sistemi",
+            "D) Yalnızca yerel ağlar için kullanılan bir araç",
+            "E) Bir dosya sıkıştırma formatı",
+          ],
+          correct: "B) World Wide Web'deki iletişimin omurgası olan protokol",
+          explanation:
+            "HTTP (Köprü Metni Aktarım Protokolü), World Wide Web'deki iletişimin temel protokolüdür. Week 3 materyalinde (sayfa 1), HTTP'nin web uygulamalarının temelini oluşturduğu ve istemci-sunucu iletişimini sağladığı belirtilmiştir.",
+        },
+        {
+          question: "Bir HTTP isteğinin temel bölümleri nelerdir?",
+          options: [
+            "A) İstek Satırı, Başlıklar, Gövde (isteğe bağlı)",
+            "B) Yalnızca İstek Satırı",
+            "C) Başlıklar ve Durum Kodu",
+            "D) Gövde ve URI",
+            "E) Yalnızca Başlıklar",
+          ],
+          correct: "A) İstek Satırı, Başlıklar, Gövde (isteğe bağlı)",
+          explanation:
+            "Bir HTTP isteği, İstek Satırı, Başlıklar ve isteğe bağlı bir Gövde'den oluşur. Week 3 materyalinde (sayfa 1), bu yapı 'Bir HTTP İsteğinin Anatomisi' başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question: "HTTP İstek Satırı hangi bileşenleri içerir?",
+          options: [
+            "A) Durum Kodu, URI, HTTP Sürümü",
+            "B) HTTP Metodu, URI, HTTP Sürümü",
+            "C) Başlıklar, Gövde, Metot",
+            "D) URI, Durum Mesajı, Content-Type",
+            "E) HTTP Sürümü, Host, Accept",
+          ],
+          correct: "B) HTTP Metodu, URI, HTTP Sürümü",
+          explanation:
+            "HTTP İstek Satırı, HTTP Metodu, URI (Tekdüzen Kaynak Tanımlayıcı) ve HTTP Sürümünden oluşur. Week 3 materyalinde (sayfa 2), bu bileşenler örnekle (örneğin, GET /api/products HTTP/1.1) açıklanmıştır.",
+        },
+        {
+          question: "HTTP İstek Başlıklarının temel amacı nedir?",
+          options: [
+            "A) Sunucuya veri göndermek",
+            "B) İstek hakkında meta veri sağlamak",
+            "C) Yanıtın durumunu belirtmek",
+            "D) Kaynağı silmek",
+            "E) Yeni bir kaynak oluşturmak",
+          ],
+          correct: "B) İstek hakkında meta veri sağlamak",
+          explanation:
+            "HTTP İstek Başlıkları, istemci yetenekleri, kimlik doğrulama bilgileri gibi meta veriler sağlar. Week 3 materyalinde (sayfa 2), başlıkların bağlam ve ek bilgi sunduğu belirtilmiştir.",
+        },
+        {
+          question: "HTTP İstek Gövdesi hangi durumlarda kullanılır?",
+          options: [
+            "A) Her zaman zorunludur",
+            "B) Yalnızca GET isteklerinde",
+            "C) POST ve PUT gibi veri gönderen metotlarda",
+            "D) Yanıtları önbelleğe almak için",
+            "E) Durum kodlarını belirtmek için",
+          ],
+          correct: "C) POST ve PUT gibi veri gönderen metotlarda",
+          explanation:
+            "HTTP İstek Gövdesi, genellikle POST ve PUT gibi kaynak oluşturma veya güncelleme için veri gönderen metotlarda kullanılır. Week 3 materyalinde (sayfa 3), bu durum JSON gövdeli bir örnekle açıklanmıştır.",
+        },
+        {
+          question: "Bir HTTP yanıtının temel bölümleri nelerdir?",
+          options: [
+            "A) Durum Satırı, Başlıklar, Gövde (isteğe bağlı)",
+            "B) Yalnızca Durum Satırı",
+            "C) Başlıklar ve URI",
+            "D) Gövde ve HTTP Metodu",
+            "E) Yalnızca Başlıklar",
+          ],
+          correct: "A) Durum Satırı, Başlıklar, Gövde (isteğe bağlı)",
+          explanation:
+            "Bir HTTP yanıtı, Durum Satırı, Başlıklar ve isteğe bağlı bir Gövde'den oluşur. Week 3 materyalinde (sayfa 4), bu yapı 'Bir HTTP Yanıtının Anatomisi' başlığı altında detaylandırılmıştır.",
+        },
+        {
+          question: "HTTP Durum Satırı hangi bilgileri içerir?",
+          options: [
+            "A) HTTP Sürümü, Durum Kodu, Durum Mesajı",
+            "B) URI, HTTP Metodu, Başlıklar",
+            "C) Durum Kodu, Gövde, Content-Type",
+            "D) HTTP Sürümü, Host, Accept",
+            "E) Durum Mesajı, Önbellekleme Direktifleri",
+          ],
+          correct: "A) HTTP Sürümü, Durum Kodu, Durum Mesajı",
+          explanation:
+            "HTTP Durum Satırı, HTTP Sürümü, Durum Kodu ve Durum Mesajı içerir. Week 3 materyalinde (sayfa 4), örnek olarak 'HTTP/1.1 200 OK' verilmiştir.",
+        },
+        {
+          question: "HTTP Yanıt Gövdesi neyi içerir?",
+          options: [
+            "A) Yalnızca meta verileri",
+            "B) İstenen kaynağı veya hata ayrıntılarını",
+            "C) HTTP Metodunu",
+            "D) URI’yi",
+            "E) Durum Kodunu",
+          ],
+          correct: "B) İstenen kaynağı veya hata ayrıntılarını",
+          explanation:
+            "HTTP Yanıt Gövdesi, istenen kaynağı (örneğin, JSON verileri) veya hata mesajlarını içerir. Week 3 materyalinde (sayfa 5), bu durum JSON gövdeli bir örnekle açıklanmıştır.",
+        },
+        {
+          question: "GET HTTP metodunun temel özelliği nedir?",
+          options: [
+            "A) Yeni kaynak oluşturur",
+            "B) Güvenli ve idempotenttir",
+            "C) Sunucu durumunu değiştirir",
+            "D) Kısmi güncellemeler yapar",
+            "E) Yanıtları önbelleğe almaz",
+          ],
+          correct: "B) Güvenli ve idempotenttir",
+          explanation:
+            "GET metodu, veri alımı için kullanılır, güvenli (yan etki yaratmaz) ve idempotenttir (tekrarlanan istekler aynı sonucu verir). Week 3 materyalinde (sayfa 7) bu özellikler detaylandırılmıştır.",
+        },
+        {
+          question: "POST HTTP metodunun temel farkı nedir?",
+          options: [
+            "A) İdempotenttir",
+            "B) Veri gönderir ve yan etkileri olabilir",
+            "C) Yalnızca meta veri alır",
+            "D) Kaynakları siler",
+            "E) Önbelleğe alınabilir",
+          ],
+          correct: "B) Veri gönderir ve yan etkileri olabilir",
+          explanation:
+            "POST metodu, veri gönderir ve yan etkilere (örneğin, kaynak oluşturma) yol açabilir; idempotent değildir. Week 3 materyalinde (sayfa 7-8) bu özellikler açıklanmıştır.",
+        },
+        {
+          question: "PUT HTTP metodunun amacı nedir?",
+          options: [
+            "A) Kaynakları silmek",
+            "B) Kaynakları güncellemek veya oluşturmak",
+            "C) Yalnızca veri almak",
+            "D) Kısmi güncellemeler yapmak",
+            "E) Sunucu yeteneklerini keşfetmek",
+          ],
+          correct: "B) Kaynakları güncellemek veya oluşturmak",
+          explanation:
+            "PUT metodu, mevcut bir kaynağı günceller veya yoksa oluşturur ve idempotenttir. Week 3 materyalinde (sayfa 8) bu amaç örnekle açıklanmıştır.",
+        },
+        {
+          question: "PATCH HTTP metodunun PUT’tan farkı nedir?",
+          options: [
+            "A) Tam kaynak günceller",
+            "B) Kısmi güncellemeler yapar",
+            "C) İdempotenttir",
+            "D) Veri göndermez",
+            "E) Kaynakları siler",
+          ],
+          correct: "B) Kısmi güncellemeler yapar",
+          explanation:
+            "PATCH, bir kaynağın yalnızca belirli kısımlarını günceller, PUT ise tüm kaynağı değiştirir. Week 3 materyalinde (sayfa 9-10) bu fark belirtilmiştir.",
+        },
+        {
+          question: "OPTIONS HTTP metodunun amacı nedir?",
+          options: [
+            "A) Kaynakları güncellemek",
+            "B) Sunucu yeteneklerini keşfetmek",
+            "C) Veri göndermek",
+            "D) Kaynakları silmek",
+            "E) Yanıt gövdesini almak",
+          ],
+          correct: "B) Sunucu yeteneklerini keşfetmek",
+          explanation:
+            "OPTIONS metodu, bir kaynağın desteklediği HTTP metotlarını ve yeteneklerini öğrenmek için kullanılır. Week 3 materyalinde (sayfa 10) bu amaç açıklanmıştır.",
+        },
+        {
+          question: "HEAD HTTP metodunun GET’ten farkı nedir?",
+          options: [
+            "A) Yanıt gövdesini içerir",
+            "B) Yalnızca başlıkları alır",
+            "C) Yan etkileri vardır",
+            "D) İdempotent değildir",
+            "E) Veri gönderir",
+          ],
+          correct: "B) Yalnızca başlıkları alır",
+          explanation:
+            "HEAD metodu, GET gibi çalışır ancak yanıt gövdesini döndürmez, yalnızca başlıkları alır. Week 3 materyalinde (sayfa 11) bu fark detaylandırılmıştır.",
+        },
+        {
+          question: "HTTP Durum Kodları hangi sınıfa aittir: 200 OK?",
+          options: [
+            "A) 1xx Bilgilendirici",
+            "B) 2xx Başarılı",
+            "C) 3xx Yönlendirme",
+            "D) 4xx İstemci Hatası",
+            "E) 5xx Sunucu Hatası",
+          ],
+          correct: "B) 2xx Başarılı",
+          explanation:
+            "200 OK, isteğin başarılı olduğunu gösteren 2xx sınıfına aittir. Week 3 materyalinde (sayfa 13) bu kod 'Başarılı' kategorisinde listelenmiştir.",
+        },
+        {
+          question: "404 Not Found hangi durumu belirtir?",
+          options: [
+            "A) İstek başarılıdır",
+            "B) Kaynak bulunamadı",
+            "C) Sunucu hatası",
+            "D) Yönlendirme gerekiyor",
+            "E) Kimlik doğrulama eksik",
+          ],
+          correct: "B) Kaynak bulunamadı",
+          explanation:
+            "404 Not Found, istenen kaynağın sunucuda bulunamadığını belirtir. Week 3 materyalinde (sayfa 15) bu durum örneğiyle açıklanmıştır.",
+        },
+        {
+          question: "Content-Type başlığının amacı nedir?",
+          options: [
+            "A) Gövde boyutunu belirtir",
+            "B) Gövdenin medya türünü tanımlar",
+            "C) Kimlik doğrulama bilgisi sağlar",
+            "D) Önbellekleme süresini belirler",
+            "E) Yönlendirme adresini gösterir",
+          ],
+          correct: "B) Gövdenin medya türünü tanımlar",
+          explanation:
+            "Content-Type başlığı, gövdenin medya türünü (örneğin, application/json) belirtir. Week 3 materyalinde (sayfa 18) bu amaç detaylandırılmıştır.",
+        },
+        {
+          question: "Authorization başlığı hangi amaçla kullanılır?",
+          options: [
+            "A) Gövde boyutunu belirtmek",
+            "B) İstemcinin kimlik bilgilerini sunmak",
+            "C) Önbellekleme direktifleri sağlamak",
+            "D) Yanıtın tarihini göstermek",
+            "E) Statik dosyaları sunmak",
+          ],
+          correct: "B) İstemcinin kimlik bilgilerini sunmak",
+          explanation:
+            "Authorization başlığı, istemcinin kimlik doğrulama bilgilerini (örneğin, Bearer token) sunar. Week 3 materyalinde (sayfa 19) bu kullanım örneğiyle açıklanmıştır.",
+        },
+        {
+          question: "Cache-Control başlığının temel işlevi nedir?",
+          options: [
+            "A) Kimlik doğrulama sağlamak",
+            "B) Önbellekleme davranışını kontrol etmek",
+            "C) Gövde türünü belirtmek",
+            "D) Sunucu kimliğini göstermek",
+            "E) Kaynak silmeyi yönetmek",
+          ],
+          correct: "B) Önbellekleme davranışını kontrol etmek",
+          explanation:
+            "Cache-Control başlığı, önbellekleme mekanizmalarını (örneğin, max-age) kontrol eder. Week 3 materyalinde (sayfa 20) bu işlev detaylandırılmıştır.",
+        },
+        {
+          question: "ASP.NET Core’un temel özelliklerinden biri nedir?",
+          options: [
+            "A) Yalnızca Windows’ta çalışır",
+            "B) Platformlar arasıdır",
+            "C) Kapalı kaynaktır",
+            "D) Yavaş performansa sahiptir",
+            "E) Bağımlılık enjeksiyonu desteklemez",
+          ],
+          correct: "B) Platformlar arasıdır",
+          explanation:
+            "ASP.NET Core, Windows, macOS ve Linux’ta çalışan platformlar arası bir framework’tür. Week 3 materyalinde (sayfa 20) bu özellik vurgulanmıştır.",
+        },
+        {
+          question:
+            "ASP.NET Core’un birleşik programlama modeli neyi ifade eder?",
+          options: [
+            "A) Yalnızca MVC’yi destekler",
+            "B) MVC ve Web API’yi tek bir framework’te birleştirir",
+            "C) Eski System.Web.dll’ye dayanır",
+            "D) Middleware kullanmaz",
+            "E) Statik dosyaları sunmaz",
+          ],
+          correct: "B) MVC ve Web API’yi tek bir framework’te birleştirir",
+          explanation:
+            "ASP.NET Core, MVC ve Web API’yi tek bir programlama modelinde birleştirir. Week 3 materyalinde (sayfa 21) bu birleşme açıklanmıştır.",
+        },
+        {
+          question: "ASP.NET Core projesinde Program.cs dosyası neyi yapar?",
+          options: [
+            "A) Yalnızca denetleyicileri tanımlar",
+            "B) Uygulamanın giriş noktasını ve middleware’ı yapılandırır",
+            "C) Statik dosyaları sunar",
+            "D) Görünümleri oluşturur",
+            "E) Veritabanı bağlantısını kurar",
+          ],
+          correct:
+            "B) Uygulamanın giriş noktasını ve middleware’ı yapılandırır",
+          explanation:
+            "Program.cs, uygulamanın giriş noktasıdır ve middleware pipeline’ını yapılandırır. Week 3 materyalinde (sayfa 23) bu rol belirtilmiştir.",
+        },
+        {
+          question: "ASP.NET Core’da Swagger UI’nin amacı nedir?",
+          options: [
+            "A) Veritabanı yönetimini sağlar",
+            "B) API uç noktalarını test etmeye yarar",
+            "C) Statik dosyaları sunar",
+            "D) Kimlik doğrulama yapar",
+            "E) Hata mesajlarını gizler",
+          ],
+          correct: "B) API uç noktalarını test etmeye yarar",
+          explanation:
+            "Swagger UI, API uç noktalarını listeleyen ve test eden bir arayüz sağlar. Week 3 materyalinde (sayfa 24) bu işlev açıklanmıştır.",
+        },
+        {
+          question: "ASP.NET Core’da middleware nedir?",
+          options: [
+            "A) Veritabanı erişim katmanı",
+            "B) İstek ve yanıtları işleyen yazılım bileşenleri",
+            "C) Yalnızca denetleyicileri çalıştırır",
+            "D) Statik dosya deposu",
+            "E) Görünüm oluşturma aracı",
+          ],
+          correct: "B) İstek ve yanıtları işleyen yazılım bileşenleri",
+          explanation:
+            "Middleware, ASP.NET Core’da istekleri ve yanıtları işleyen pipeline bileşenleridir. Week 3 materyalinde (sayfa 24) bu tanım verilmiştir.",
+        },
+        {
+          question: "ASP.NET Core’da yönlendirme middleware’i ne yapar?",
+          options: [
+            "A) Statik dosyaları sunar",
+            "B) İstekleri uç noktalara eşler",
+            "C) Hata mesajlarını günlüğe kaydeder",
+            "D) Kimlik doğrulama yapar",
+            "E) Önbellekleme sağlar",
+          ],
+          correct: "B) İstekleri uç noktalara eşler",
+          explanation:
+            "Yönlendirme middleware’i (UseRouting), istekleri denetleyicilere veya uç noktalara eşler. Week 3 materyalinde (sayfa 25) bu işlev listelenmiştir.",
+        },
+        {
+          question: "Özel middleware oluşturmanın ilk adımı nedir?",
+          options: [
+            "A) Bir denetleyici sınıfı oluşturmak",
+            "B) InvokeAsync metoduna sahip bir sınıf yazmak",
+            "C) Statik dosyaları yapılandırmak",
+            "D) Görünüm dosyası eklemek",
+            "E) Veritabanı bağlantısı kurmak",
+          ],
+          correct: "B) InvokeAsync metoduna sahip bir sınıf yazmak",
+          explanation:
+            "Özel middleware, InvokeAsync metoduna sahip bir sınıf yazılarak oluşturulur. Week 3 materyalinde (sayfa 28) bu adım detaylandırılmıştır.",
+        },
+        {
+          question: "ASP.NET Core’da middleware sırası neden önemlidir?",
+          options: [
+            "A) Yalnızca performans için",
+            "B) Middleware’lar eklendikleri sırayla yürütülür",
+            "C) Sıra önemli değildir",
+            "D) Yalnızca geliştirme ortamında etkilidir",
+            "E) Statik dosyaları etkiler",
+          ],
+          correct: "B) Middleware’lar eklendikleri sırayla yürütülür",
+          explanation:
+            "Middleware’lar, Program.cs’de eklendikleri sırayla yürütülür; bu, isteğin işlenme sırasını belirler. Week 3 materyalinde (sayfa 27) bu vurgulanmıştır.",
+        },
+        {
+          question: "LoggingMiddleware örneğinde hangi bağımlılık kullanılır?",
+          options: [
+            "A) HttpContext",
+            "B) ILogger",
+            "C) Controller",
+            "D) Razor",
+            "E) DbContext",
+          ],
+          correct: "B) ILogger",
+          explanation:
+            "LoggingMiddleware, günlüğe kaydetme için ILogger bağımlılığını kullanır. Week 3 materyalinde (sayfa 28) bu kod örneğinde gösterilmiştir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da UseHttpsRedirection middleware’i ne yapar?",
+          options: [
+            "A) Statik dosyaları sunar",
+            "B) HTTP isteklerini HTTPS’ye yönlendirir",
+            "C) Kimlik doğrulama yapar",
+            "D) Hata sayfalarını gösterir",
+            "E) Uç noktaları eşler",
+          ],
+          correct: "B) HTTP isteklerini HTTPS’ye yönlendirir",
+          explanation:
+            "UseHttpsRedirection middleware’i, HTTP isteklerini HTTPS’ye yönlendirerek güvenliği artırır. Week 3 materyalinde (sayfa 26) bu işlev listelenmiştir.",
+        },
+        {
+          question:
+            "ASP.NET Core’da varsayılan Web API projesini test etmek için hangi araç kullanılır?",
+          options: [
+            "A) Visual Studio Code",
+            "B) Swagger UI",
+            "C) Postman",
+            "D) SQL Server",
+            "E) Git",
+          ],
+          correct: "B) Swagger UI",
+          explanation:
+            "Varsayılan ASP.NET Core Web API projesi, Swagger UI ile uç noktaları test etmek için yapılandırılmıştır. Week 3 materyalinde (sayfa 24) bu süreç açıklanmıştır.",
+        },
+
+        {
+          question: "ASP.NET Core’da HTTP istekleri nasıl kapsüllenir?",
+          options: [
+            "A) IActionResult nesnesi ile",
+            "B) HttpResponse nesnesi ile",
+            "C) HttpRequest nesnesi ile",
+            "D) RouteData nesnesi ile",
+            "E) IQueryCollection ile",
+          ],
+          correct: "C) HttpRequest nesnesi ile",
+          explanation:
+            "ASP.NET Core’da gelen HTTP istekleri, tüm istek bilgilerini kapsülleyen HttpRequest nesnesi içinde saklanır. Week 5 materyalinde (sayfa 1), bu nesnenin rolü açıkça belirtilmiştir.",
+        },
+        {
+          question: "HttpRequest nesnesinin temel işlevi nedir?",
+          options: [
+            "A) Yanıtları oluşturmak",
+            "B) Gelen istek bilgilerine erişim sağlamak",
+            "C) Rota parametrelerini otomatik bağlamak",
+            "D) HTTP başlıklarını oluşturmak",
+            "E) Yanıt durum kodlarını ayarlamak",
+          ],
+          correct: "B) Gelen istek bilgilerine erişim sağlamak",
+          explanation:
+            "HttpRequest nesnesi, gelen HTTP isteğiyle ilgili tüm bilgilere (metot, URL, başlıklar, gövde vb.) erişim sağlar. Week 5 materyalinde (sayfa 2), bu işlev detaylı bir şekilde açıklanmıştır.",
+        },
+        {
+          question: "Denetleyicilerde HttpRequest nesnesine nasıl erişilir?",
+          options: [
+            "A) HttpContext.Request ile",
+            "B) ControllerBase.Response ile",
+            "C) RouteData.Values ile",
+            "D) QueryCollection ile",
+            "E) IActionResult ile",
+          ],
+          correct: "A) HttpContext.Request ile",
+          explanation:
+            "Denetleyicilerde HttpRequest nesnesine, ControllerBase sınıfının HttpContext.Request özelliği ile erişilir. Week 5 materyalinde (sayfa 2), bu erişim yöntemi örnekle gösterilmiştir.",
+        },
+        {
+          question:
+            "HttpRequest nesnesinden hangi özellik HTTP metodunu döndürür?",
+          options: [
+            "A) Path",
+            "B) Method",
+            "C) QueryString",
+            "D) Scheme",
+            "E) Headers",
+          ],
+          correct: "B) Method",
+          explanation:
+            "HttpRequest.Method özelliği, isteğin HTTP metodunu (GET, POST vb.) döndürür. Week 5 materyalinde (sayfa 2), bu özellik temel özellikler arasında listelenmiştir.",
+        },
+        {
+          question: "Rota verilerine erişmek için hangi yöntem kullanılır?",
+          options: [
+            "A) HttpContext.GetRouteData()",
+            "B) HttpRequest.Query",
+            "C) HttpRequest.Headers",
+            "D) HttpContext.Response",
+            "E) IActionResult.Ok()",
+          ],
+          correct: "A) HttpContext.GetRouteData()",
+          explanation:
+            "Rota verilerine erişmek için HttpContext.GetRouteData() metodu kullanılır ve bu, RouteData nesnesini döndürür. Week 5 materyalinde (sayfa 4), bu yöntem örnekle açıklanmıştır.",
+        },
+        {
+          question:
+            "Sorgu parametreleri HttpRequest nesnesinde hangi özellik ile alınır?",
+          options: [
+            "A) RouteData",
+            "B) Headers",
+            "C) Query",
+            "D) Body",
+            "E) Method",
+          ],
+          correct: "C) Query",
+          explanation:
+            "Sorgu parametreleri, HttpRequest nesnesinin Query özelliği (IQueryCollection) ile alınır. Week 5 materyalinde (sayfa 5), bu özellik sorgu dizesi verilerine erişim için tanımlanmıştır.",
+        },
+        {
+          question:
+            "İstek başlıklarına erişmek için hangi HttpRequest özelliği kullanılır?",
+          options: [
+            "A) Query",
+            "B) Headers",
+            "C) RouteValues",
+            "D) Scheme",
+            "E) Path",
+          ],
+          correct: "B) Headers",
+          explanation:
+            "İstek başlıkları, HttpRequest.Headers özelliği (IHeaderDictionary) ile erişilir. Week 5 materyalinde (sayfa 7), bu özellik başlıklara erişim için açıklanmıştır.",
+        },
+        {
+          question:
+            "ASP.NET Core’da HTTP yanıtları hangi nesne ile oluşturulur?",
+          options: [
+            "A) HttpRequest",
+            "B) HttpResponse",
+            "C) RouteData",
+            "D) IQueryCollection",
+            "E) ModelState",
+          ],
+          correct: "B) HttpResponse",
+          explanation:
+            "HTTP yanıtları, HttpResponse nesnesi ile oluşturulur ve yönetilir. Week 5 materyalinde (sayfa 1), bu nesnenin yanıt oluşturmadaki rolü belirtilmiştir.",
+        },
+        {
+          question:
+            "Denetleyici eylemlerinden yanıt döndürmek için hangi arayüz kullanılır?",
+          options: [
+            "A) IHeaderDictionary",
+            "B) IActionResult",
+            "C) IQueryCollection",
+            "D) HttpContext",
+            "E) RouteData",
+          ],
+          correct: "B) IActionResult",
+          explanation:
+            "Denetleyici eylemlerinden farklı türde yanıtlar döndürmek için IActionResult arayüzü kullanılır. Week 5 materyalinde (sayfa 1), bu arayüzün önemi vurgulanmıştır.",
+        },
+        {
+          question:
+            "200 OK durum kodunu döndürmek için hangi IActionResult metodu kullanılır?",
+          options: [
+            "A) NotFound()",
+            "B) BadRequest()",
+            "C) Ok()",
+            "D) StatusCode(500)",
+            "E) CreatedAtAction()",
+          ],
+          correct: "C) Ok()",
+          explanation:
+            "Ok() metodu, 200 OK durum koduyla bir yanıt döndürür. Week 5 materyalinde (sayfa 3), bu metodun kullanımı örnekle gösterilmiştir.",
+        },
+        {
+          question:
+            "400 Bad Request durum kodunu döndürmek için hangi metod kullanılır?",
+          options: [
+            "A) Ok()",
+            "B) BadRequest()",
+            "C) NotFound()",
+            "D) StatusCode(201)",
+            "E) File()",
+          ],
+          correct: "B) BadRequest()",
+          explanation:
+            "BadRequest() metodu, 400 Bad Request durum koduyla bir yanıt döndürür. Week 5 materyalinde (sayfa 28), bu metodun kullanım amacı belirtilmiştir.",
+        },
+        {
+          question: "Yanıt başlıkları hangi nesne ile ayarlanır?",
+          options: [
+            "A) HttpRequest.Headers",
+            "B) HttpContext.Response.Headers",
+            "C) RouteData.Values",
+            "D) IActionResult.Headers",
+            "E) QueryCollection",
+          ],
+          correct: "B) HttpContext.Response.Headers",
+          explanation:
+            "Yanıt başlıkları, HttpContext.Response.Headers ile ayarlanır. Week 5 materyalinde (sayfa 28), bu özellik yanıt başlıklarını yönetmek için açıklanmıştır.",
+        },
+        {
+          question:
+            "JSON formatında yanıt döndürmek için hangi IActionResult metodu kullanılır?",
+          options: [
+            "A) Content()",
+            "B) File()",
+            "C) Json()",
+            "D) PhysicalFile()",
+            "E) StatusCode()",
+          ],
+          correct: "C) Json()",
+          explanation:
+            "Json() metodu, JSON formatında bir yanıt döndürmek için kullanılır. Week 5 materyalinde (sayfa 28), bu metodun içerik türü ayarlama örneği verilmiştir.",
+        },
+        {
+          question: "Model Bağlama’nın temel amacı nedir?",
+          options: [
+            "A) HTTP isteklerini yönlendirmek",
+            "B) İstek verilerini manuel olarak çıkarmak",
+            "C) İstek verilerini eylem parametrelerine otomatik eşlemek",
+            "D) Yanıt başlıklarını ayarlamak",
+            "E) Durum kodlarını değiştirmek",
+          ],
+          correct: "C) İstek verilerini eylem parametrelerine otomatik eşlemek",
+          explanation:
+            "Model Bağlama, gelen istek verilerini eylem metodu parametrelerine otomatik olarak eşler. Week 5 materyalinde (sayfa 18), bu temel amaç tanımlanmıştır.",
+        },
+        {
+          question: "Model Bağlama hangi veri kaynağından bağlama yapamaz?",
+          options: [
+            "A) Rota Verileri",
+            "B) Sorgu Dizeleri",
+            "C) İstek Gövdesi",
+            "D) İstek Başlıkları",
+            "E) Veritabanı Kayıtları",
+          ],
+          correct: "E) Veritabanı Kayıtları",
+          explanation:
+            "Model Bağlama, rota verileri, sorgu dizeleri, istek gövdesi ve başlıklar gibi HTTP istek kaynaklarından veri bağlar, ancak veritabanı kayıtları bir bağlama kaynağı değildir. Week 5 materyalinde (sayfa 18), desteklenen kaynaklar listelenmiştir.",
+        },
+        {
+          question: "Rota verilerinden bağlama nasıl gerçekleştirilir?",
+          options: [
+            "A) [FromBody] özniteliği ile",
+            "B) Parametre adlarını rota parametreleriyle eşleştirerek",
+            "C) HttpRequest.Query ile",
+            "D) [FromHeader] özniteliği ile",
+            "E) Manuel olarak RouteData ile",
+          ],
+          correct: "B) Parametre adlarını rota parametreleriyle eşleştirerek",
+          explanation:
+            "Rota verilerinden bağlama, eylem metodu parametre adlarının rota parametreleriyle eşleşmesiyle otomatik olarak yapılır. Week 5 materyalinde (sayfa 19), bu yöntem örnekle açıklanmıştır.",
+        },
+        {
+          question:
+            "Sorgu dizelerinden bağlama için hangi öznitelik gereklidir?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromHeader]",
+            "C) [FromRoute]",
+            "D) Hiçbiri",
+            "E) [FromForm]",
+          ],
+          correct: "D) Hiçbiri",
+          explanation:
+            "Sorgu dizelerinden bağlama, özel bir özniteliğe ihtiyaç duymadan parametre adlarının sorgu parametreleriyle eşleşmesiyle otomatik gerçekleşir. Week 5 materyalinde (sayfa 20), bu durum belirtilmiştir.",
+        },
+        {
+          question:
+            "İstek gövdesinden veri bağlamak için hangi öznitelik kullanılır?",
+          options: [
+            "A) [FromRoute]",
+            "B) [FromBody]",
+            "C) [FromQuery]",
+            "D) [FromHeader]",
+            "E) [FromForm]",
+          ],
+          correct: "B) [FromBody]",
+          explanation:
+            "İstek gövdesinden (örn. JSON) veri bağlamak için [FromBody] özniteliği kullanılır. Week 5 materyalinde (sayfa 22), bu öznitelik örnekle tanıtılmıştır.",
+        },
+        {
+          question:
+            "İstek gövdesinden bağlama hangi HTTP metotlarıyla yaygın olarak kullanılır?",
+          options: [
+            "A) GET ve DELETE",
+            "B) POST ve PUT",
+            "C) HEAD ve OPTIONS",
+            "D) TRACE ve PATCH",
+            "E) GET ve POST",
+          ],
+          correct: "B) POST ve PUT",
+          explanation:
+            "İstek gövdesinden bağlama, gövde verisi gönderen POST ve PUT gibi metotlarla yaygın olarak kullanılır. Week 5 materyalinde (sayfa 22), bu kullanım belirtilmiştir.",
+        },
+        {
+          question:
+            "İstek başlıklarından bağlama için hangi öznitelik gereklidir?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromRoute]",
+            "C) [FromHeader]",
+            "D) [FromQuery]",
+            "E) [FromForm]",
+          ],
+          correct: "C) [FromHeader]",
+          explanation:
+            "İstek başlıklarından veri bağlamak için [FromHeader] özniteliği kullanılır. Week 5 materyalinde (sayfa 24), bu öznitelik örnekle açıklanmıştır.",
+        },
+        {
+          question: "[FromHeader] özniteliğinde Name özelliği neyi belirtir?",
+          options: [
+            "A) Parametre türünü",
+            "B) Bağlanacak başlık adını",
+            "C) Varsayılan değeri",
+            "D) Rota parametresini",
+            "E) İçerik türünü",
+          ],
+          correct: "B) Bağlanacak başlık adını",
+          explanation:
+            "[FromHeader] özniteliğinin Name özelliği, bağlanacak HTTP başlığının adını belirtir. Week 5 materyalinde (sayfa 24), bu özellik detaylandırılmıştır.",
+        },
+        {
+          question:
+            "Form verilerinden bağlama hangi HTTP metoduyla kullanılır?",
+          options: ["A) GET", "B) POST", "C) DELETE", "D) PUT", "E) HEAD"],
+          correct: "B) POST",
+          explanation:
+            "Form verilerinden bağlama, genellikle HTML form gönderimlerini işleyen POST metoduyla kullanılır. Week 5 materyalinde (sayfa 26), bu kullanım örneği verilmiştir.",
+        },
+        {
+          question:
+            "Form verilerinden bağlama için hangi öznitelik kullanılabilir?",
+          options: [
+            "A) [FromBody]",
+            "B) [FromRoute]",
+            "C) [FromForm]",
+            "D) [FromHeader]",
+            "E) [FromQuery]",
+          ],
+          correct: "C) [FromForm]",
+          explanation:
+            "Form verilerinden bağlama için [FromForm] özniteliği kullanılabilir, ancak basit durumlarda öznitelik olmadan da çalışır. Week 5 materyalinde (sayfa 26), bu durum açıklanmıştır.",
+        },
+        {
+          question: "Model Bağlama’nın bir avantajı nedir?",
+          options: [
+            "A) Manuel veri ayrıştırmayı artırır",
+            "B) Standart kodu azaltır",
+            "C) Yanıt oluşturmayı karmaşıklaştırır",
+            "D) HTTP metodlarını sınırlandırır",
+            "E) Başlık yönetimini zorlaştırır",
+          ],
+          correct: "B) Standart kodu azaltır",
+          explanation:
+            "Model Bağlama, veri alımını ve dönüşümünü otomatikleştirerek standart kodu azaltır. Week 5 materyalinde (sayfa 18), bu fayda vurgulanmıştır.",
+        },
+        {
+          question: "Model Bağlama başarısız olduğunda ne kontrol edilmelidir?",
+          options: [
+            "A) Parametre adlarının eşleşmesi",
+            "B) Yanıt başlıkları",
+            "C) HTTP metot sırası",
+            "D) Rota şablonları",
+            "E) Veritabanı bağlantısı",
+          ],
+          correct: "A) Parametre adlarının eşleşmesi",
+          explanation:
+            "Model Bağlama başarısız olduğunda, parametre adlarının bağlama kaynağıyla (rota, sorgu vb.) eşleştiği kontrol edilmelidir. Week 5 materyalinde (sayfa 28), bu sorun giderme adımı belirtilmiştir.",
+        },
+        {
+          question: "JSON gövdesinden bağlama için hangi başlık önemlidir?",
+          options: [
+            "A) User-Agent",
+            "B) Accept-Language",
+            "C) Content-Type",
+            "D) Authorization",
+            "E) Host",
+          ],
+          correct: "C) Content-Type",
+          explanation:
+            "JSON gövdesinden bağlama için Content-Type başlığı (örn. application/json) önemlidir, çünkü doğru biçimlendiriciyi seçer. Week 5 materyalinde (sayfa 28), bu gereklilik belirtilmiştir.",
+        },
+        {
+          question:
+            "Hangi IActionResult metodu dosya döndürmek için kullanılır?",
+          options: [
+            "A) Json()",
+            "B) Content()",
+            "C) File()",
+            "D) Ok()",
+            "E) BadRequest()",
+          ],
+          correct: "C) File()",
+          explanation:
+            "File() metodu, fiziksel bir dosyayı veya bayt dizisini istemciye döndürmek için kullanılır. Week 5 materyalinde (sayfa 28), bu metodun kullanımı açıklanmıştır.",
+        },
+        {
+          question:
+            "201 Created durum kodunu döndürmek için hangi metod kullanılır?",
+          options: [
+            "A) Ok()",
+            "B) CreatedAtAction()",
+            "C) NotFound()",
+            "D) StatusCode(400)",
+            "E) Content()",
+          ],
+          correct: "B) CreatedAtAction()",
+          explanation:
+            "CreatedAtAction() metodu, 201 Created durum koduyla yeni oluşturulan bir kaynağın yerini döndürür. Week 5 materyalinde (sayfa 28), bu metodun amacı belirtilmiştir.",
+        },
+        {
+          question: "Model Bağlama’da tür dönüşümü neyi ifade eder?",
+          options: [
+            "A) Yanıtların JSON’a çevrilmesi",
+            "B) İstek dizesinden .NET türlerine otomatik dönüşüm",
+            "C) Başlıkların kodlanması",
+            "D) Rota verilerinin şifrelenmesi",
+            "E) HTTP metodunun değişimi",
+          ],
+          correct: "B) İstek dizesinden .NET türlerine otomatik dönüşüm",
+          explanation:
+            "Model Bağlama, istekteki dize değerlerini .NET türlerine (örn. string -> int) otomatik olarak dönüştürür. Week 5 materyalinde (sayfa 18), bu özellik tanımlanmıştır.",
+        },
+        {
+          question: "Hangi durumda ModelState.IsValid kontrol edilmelidir?",
+          options: [
+            "A) Rota verileri bağlanırken",
+            "B) Doğrulama etkinse",
+            "C) Yanıt başlıkları ayarlanırken",
+            "D) HTTP metotları değiştiğinde",
+            "E) Sorgu parametreleri alınırken",
+          ],
+          correct: "B) Doğrulama etkinse",
+          explanation:
+            "Model doğrulama etkinse, ModelState.IsValid ile doğrulama hataları kontrol edilmelidir. Week 5 materyalinde (sayfa 28), bu sorun giderme adımı önerilmiştir.",
+        },
+
+        {
+          question: "Veri doğrulama neden önemlidir?",
+          options: [
+            "A) Yanıt sürelerini hızlandırmak için",
+            "B) Veri bütünlüğünü, güvenliği ve kullanıcı deneyimini sağlamak için",
+            "C) HTTP metotlarını tanımlamak için",
+            "D) API uç noktalarını gizlemek için",
+            "E) Kaynak kullanımını artırmak için",
+          ],
+          correct:
+            "B) Veri bütünlüğünü, güvenliği ve kullanıcı deneyimini sağlamak için",
+          explanation:
+            "Veri doğrulama, veri bütünlüğünü korur, güvenlik açıklarını önler ve kullanıcıya bilgilendirici hata mesajları sunarak deneyimi iyileştirir. Week 6 materyalinde (sayfa 2), bu nedenler detaylı bir şekilde açıklanmıştır.",
+        },
+        {
+          question:
+            "ASP.NET Core’da veri doğrulama için en yaygın deklaratif yöntem nedir?",
+          options: [
+            "A) ModelState.IsValid",
+            "B) Veri Notasyon Özellikleri",
+            "C) IValidatableObject",
+            "D) FluentValidation",
+            "E) Özel Doğrulama Özellikleri",
+          ],
+          correct: "B) Veri Notasyon Özellikleri",
+          explanation:
+            "Veri Notasyon Özellikleri, modellerde doğrulama kurallarını deklaratif olarak tanımlamanın en yaygın yoludur. Week 6 materyalinde (sayfa 4), bu yöntemin kullanımı örneklerle tanıtılmıştır.",
+        },
+        {
+          question:
+            "Hangi Veri Notasyon Özelliği bir alanın zorunlu olduğunu belirtir?",
+          options: [
+            "A) [Range]",
+            "B) [StringLength]",
+            "C) [Required]",
+            "D) [EmailAddress]",
+            "E) [Compare]",
+          ],
+          correct: "C) [Required]",
+          explanation:
+            "[Required] özniteliği, bir özelliğin boş olamayacağını belirtir. Week 6 materyalinde (sayfa 4), bu öznitelik yaygın kullanılan özellikler arasında listelenmiştir.",
+        },
+        {
+          question: "Model Durumu Doğrulama hangi aşamada tetiklenir?",
+          options: [
+            "A) Yanıt oluşturulurken",
+            "B) Model bağlama sırasında",
+            "C) HTTP isteği gönderilmeden önce",
+            "D) Denetleyici eylemi tamamlandıktan sonra",
+            "E) URI tasarımı sırasında",
+          ],
+          correct: "B) Model bağlama sırasında",
+          explanation:
+            "Model Durumu Doğrulama, model bağlama sırasında otomatik olarak tetiklenir ve doğrulama sonuçları ModelState’e kaydedilir. Week 6 materyalinde (sayfa 6), bu süreç açıklanmıştır.",
+        },
+        {
+          question:
+            "Denetleyicide doğrulama hatalarını kontrol etmek için hangi özellik kullanılır?",
+          options: [
+            "A) ModelState.IsValid",
+            "B) HttpContext.Request",
+            "C) IActionResult.Json",
+            "D) ValidationContext",
+            "E) RouteData.Values",
+          ],
+          correct: "A) ModelState.IsValid",
+          explanation:
+            "ModelState.IsValid, doğrulamanın başarılı olup olmadığını kontrol etmek için kullanılır. Week 6 materyalinde (sayfa 7), bu özelliğin kullanımı örnekle gösterilmiştir.",
+        },
+        {
+          question: "Hangi durumda BadRequest(ModelState) yanıtı döndürülür?",
+          options: [
+            "A) Doğrulama başarılı olduğunda",
+            "B) ModelState.IsValid false olduğunda",
+            "C) URI tasarımı hatalı olduğunda",
+            "D) HTTP metodu yanlış kullanıldığında",
+            "E) JSON yanıtı oluşturulurken",
+          ],
+          correct: "B) ModelState.IsValid false olduğunda",
+          explanation:
+            "ModelState.IsValid false ise, doğrulama hataları vardır ve BadRequest(ModelState) ile 400 durumu döndürülür. Week 6 materyalinde (sayfa 7), bu kullanım açıklanmıştır.",
+        },
+        {
+          question:
+            "Karmaşık doğrulama senaryoları için hangi arayüz kullanılır?",
+          options: [
+            "A) IActionResult",
+            "B) IValidatableObject",
+            "C) IHeaderDictionary",
+            "D) IQueryCollection",
+            "E) ValidationAttribute",
+          ],
+          correct: "B) IValidatableObject",
+          explanation:
+            "IValidatableObject arayüzü, karmaşık doğrulama mantığını modele eklemek için kullanılır. Week 6 materyalinde (sayfa 10), bu arayüzün uygulaması örneklendirilmiştir.",
+        },
+        {
+          question: "IValidatableObject’ta Validate yöntemi ne döndürür?",
+          options: [
+            "A) IActionResult",
+            "B) bool",
+            "C) IEnumerable<ValidationResult>",
+            "D) string",
+            "E) ModelStateDictionary",
+          ],
+          correct: "C) IEnumerable<ValidationResult>",
+          explanation:
+            "Validate yöntemi, doğrulama hatalarını temsil eden ValidationResult nesnelerini içeren bir koleksiyon döndürür. Week 6 materyalinde (sayfa 10), bu yapı detaylandırılmıştır.",
+        },
+        {
+          question:
+            "Özel Doğrulama Özellikleri oluşturmak için hangi sınıftan miras alınır?",
+          options: [
+            "A) ControllerBase",
+            "B) ValidationAttribute",
+            "C) ModelState",
+            "D) AbstractValidator",
+            "E) HttpRequest",
+          ],
+          correct: "B) ValidationAttribute",
+          explanation:
+            "Özel Doğrulama Özellikleri, ValidationAttribute sınıfından miras alınarak oluşturulur. Week 6 materyalinde (sayfa 12), bu yöntem örnekle açıklanmıştır.",
+        },
+        {
+          question: "FluentValidation hangi tür projelerde tercih edilir?",
+          options: [
+            "A) Basit doğrulama gerektiren projelerde",
+            "B) Karmaşık doğrulama mantığı gerektiren projelerde",
+            "C) URI tasarımı odaklı projelerde",
+            "D) HTTP metot testi yapılan projelerde",
+            "E) JSON biçimlendirme gerektiren projelerde",
+          ],
+          correct: "B) Karmaşık doğrulama mantığı gerektiren projelerde",
+          explanation:
+            "FluentValidation, karmaşık doğrulama ihtiyaçları için etkileyici bir yol sunar. Week 6 materyalinde (sayfa 3), bu durum belirtilmiştir.",
+        },
+        {
+          question: "API Tasarım Desenlerinin temel amacı nedir?",
+          options: [
+            "A) Veri doğrulama kurallarını tanımlamak",
+            "B) Kullanıcı dostu, sürdürülebilir ve ölçeklenebilir API’ler oluşturmak",
+            "C) HTTP isteklerini hızlandırmak",
+            "D) Model bağlamayı otomatikleştirmek",
+            "E) Güvenlik açıklarını kapatmak",
+          ],
+          correct:
+            "B) Kullanıcı dostu, sürdürülebilir ve ölçeklenebilir API’ler oluşturmak",
+          explanation:
+            "API Tasarım Desenleri, kullanım kolaylığı, sürdürülebilirlik ve ölçeklenebilirlik sağlar. Week 6 materyalinde (sayfa 15), bu amaç vurgulanmıştır.",
+        },
+        {
+          question: "Kaynak Odaklı Tasarım’da kaynaklar nasıl temsil edilir?",
+          options: [
+            "A) Fiillerle",
+            "B) İsimlerle",
+            "C) Sorgu parametreleriyle",
+            "D) HTTP başlıklarıyla",
+            "E) JSON gövdeleriyle",
+          ],
+          correct: "B) İsimlerle",
+          explanation:
+            "Kaynak Odaklı Tasarım’da kaynaklar, genellikle çoğul isimler olarak temsil edilir (örn. /products). Week 6 materyalinde (sayfa 16), bu ilke açıklanmıştır.",
+        },
+        {
+          question: "Hangi HTTP metodu bir kaynağı almak için kullanılır?",
+          options: ["A) POST", "B) PUT", "C) GET", "D) DELETE", "E) PATCH"],
+          correct: "C) GET",
+          explanation:
+            "GET metodu, bir kaynağı veya kaynak listesini almak için kullanılır ve güvenli/idempotenttir. Week 6 materyalinde (sayfa 16), bu kullanım tanımlanmıştır.",
+        },
+        {
+          question: "URI tasarımlarında eylemler nasıl belirtilmelidir?",
+          options: [
+            "A) URI yolunda fiillerle",
+            "B) HTTP metotlarıyla",
+            "C) Sorgu parametreleriyle",
+            "D) İstek gövdesinde",
+            "E) Başlıklarda",
+          ],
+          correct: "B) HTTP metotlarıyla",
+          explanation:
+            "URI’lerde eylemler fiillerle değil, HTTP metotlarıyla (GET, POST vb.) belirtilir. Week 6 materyalinde (sayfa 17), bu kural açıklanmıştır.",
+        },
+        {
+          question:
+            "URI’lerde kelimeleri ayırmak için hangi karakter önerilir?",
+          options: [
+            "A) Boşluk",
+            "B) Alt çizgi (_)",
+            "C) Tire (-)",
+            "D) Nokta (.)",
+            "E) Büyük harf",
+          ],
+          correct: "C) Tire (-)",
+          explanation:
+            "URI’lerde okunabilirlik için tire (-) kullanımı önerilir (örn. /customer-orders). Week 6 materyalinde (sayfa 17), bu en iyi uygulama belirtilmiştir.",
+        },
+        {
+          question: "Hangi HTTP metodu yeni bir kaynak oluşturur?",
+          options: ["A) GET", "B) POST", "C) PUT", "D) PATCH", "E) DELETE"],
+          correct: "B) POST",
+          explanation:
+            "POST metodu, yeni bir kaynak oluşturmak için kullanılır ve idempotent değildir. Week 6 materyalinde (sayfa 18), bu semantik anlam açıklanmıştır.",
+        },
+        {
+          question: "PUT metodunun temel özelliği nedir?",
+          options: [
+            "A) Kısmi güncelleme yapar",
+            "B) Idempotenttir",
+            "C) Güvenli bir metottur",
+            "D) Koleksiyonları sıralar",
+            "E) Hipermedya bağlantıları ekler",
+          ],
+          correct: "B) Idempotenttir",
+          explanation:
+            "PUT, bir kaynağı tamamen günceller ve idempotenttir; aynı istek birden çok kez aynı sonucu üretir. Week 6 materyalinde (sayfa 18), bu özellik tanımlanmıştır.",
+        },
+        {
+          question: "JSON’un API’lerde tercih edilme nedeni nedir?",
+          options: [
+            "A) Daha hızlı doğrulama sağlar",
+            "B) İnsan tarafından okunabilir ve hafiftir",
+            "C) URI tasarımını kolaylaştırır",
+            "D) HTTP metotlarını standartlaştırır",
+            "E) Model bağlamayı otomatikleştirir",
+          ],
+          correct: "B) İnsan tarafından okunabilir ve hafiftir",
+          explanation:
+            "JSON, okunabilirliği ve hafif yapısıyla API’lerde tercih edilir. Week 6 materyalinde (sayfa 19), bu avantajlar listelenmiştir.",
+        },
+        {
+          question: "HATEOAS’ın temel amacı nedir?",
+          options: [
+            "A) Veri doğrulamayı otomatikleştirmek",
+            "B) API keşfedilebilirliğini ve navigasyonu geliştirmek",
+            "C) Kaynakları sıralamak",
+            "D) HTTP metotlarını değiştirmek",
+            "E) JSON yanıtlarını küçültmek",
+          ],
+          correct: "B) API keşfedilebilirliğini ve navigasyonu geliştirmek",
+          explanation:
+            "HATEOAS, hipermedya bağlantılarıyla API’nin keşfedilebilirliğini ve istemci navigasyonunu iyileştirir. Week 6 materyalinde (sayfa 21), bu kavram detaylandırılmıştır.",
+        },
+        {
+          question: "HATEOAS yanıtlarında hangi bölüm bağlantıları içerir?",
+          options: [
+            "A) pageInfo",
+            "B) _links",
+            "C) items",
+            "D) headers",
+            "E) errors",
+          ],
+          correct: "B) _links",
+          explanation:
+            "HATEOAS yanıtlarında bağlantılar genellikle '_links' bölümünde yer alır. Week 6 materyalinde (sayfa 21), bu yapı örnekle gösterilmiştir.",
+        },
+        {
+          question: "Sayfalama neden gereklidir?",
+          options: [
+            "A) Veri doğrulamayı kolaylaştırmak için",
+            "B) Büyük kaynak koleksiyonlarını verimli işlemek için",
+            "C) HTTP metotlarını standartlaştırmak için",
+            "D) URI hiyerarşisini basitleştirmek için",
+            "E) JSON yanıtlarını optimize etmek için",
+          ],
+          correct: "B) Büyük kaynak koleksiyonlarını verimli işlemek için",
+          explanation:
+            "Sayfalama, büyük veri kümelerini yönetilebilir parçalara böler ve performansı artırır. Week 6 materyalinde (sayfa 22), bu fayda belirtilmiştir.",
+        },
+        {
+          question: "Sayfalama meta verilerinde hangi bilgi yer almaz?",
+          options: [
+            "A) Geçerli sayfa numarası",
+            "B) Sayfa boyutu",
+            "C) Toplam öğe sayısı",
+            "D) Doğrulama hataları",
+            "E) Toplam sayfa sayısı",
+          ],
+          correct: "D) Doğrulama hataları",
+          explanation:
+            "Sayfalama meta verileri, sayfa numarası, boyutu, toplam öğe ve sayfa sayısı gibi bilgileri içerir; doğrulama hataları ise ModelState ile ilişkilidir. Week 6 materyalinde (sayfa 23), bu yapı örneklendirilmiştir.",
+        },
+        {
+          question: "Filtreleme için hangi mekanizma kullanılır?",
+          options: [
+            "A) HTTP metotları",
+            "B) Sorgu parametreleri",
+            "C) Rota verileri",
+            "D) İstek gövdesi",
+            "E) URI hiyerarşisi",
+          ],
+          correct: "B) Sorgu parametreleri",
+          explanation:
+            "Filtreleme, sorgu parametreleriyle yapılır (örn. /products?category=electronics). Week 6 materyalinde (sayfa 24), bu yöntem açıklanmıştır.",
+        },
+        {
+          question:
+            "Sıralama düzenini belirtmek için hangi parametre kullanılır?",
+          options: [
+            "A) pageSize",
+            "B) sortOrder",
+            "C) filterBy",
+            "D) rel",
+            "E) href",
+          ],
+          correct: "B) sortOrder",
+          explanation:
+            "Sıralama düzeni, 'sortOrder' parametresiyle (asc/desc) belirtilir. Week 6 materyalinde (sayfa 25), bu kullanım örneği verilmiştir.",
+        },
+        {
+          question: "Hangi HTTP metodu bir kaynağı kısmen günceller?",
+          options: ["A) GET", "B) POST", "C) PUT", "D) PATCH", "E) DELETE"],
+          correct: "D) PATCH",
+          explanation:
+            "PATCH metodu, bir kaynağı kısmen güncellemek için kullanılır ve idempotent olmayabilir. Week 6 materyalinde (sayfa 18), bu semantik anlam tanımlanmıştır.",
+        },
+        {
+          question: "DELETE metodunun özelliği nedir?",
+          options: [
+            "A) Güvenlidir",
+            "B) Idempotenttir",
+            "C) Kısmi güncelleme yapar",
+            "D) Yeni kaynak oluşturur",
+            "E) Koleksiyonları filtreler",
+          ],
+          correct: "B) Idempotenttir",
+          explanation:
+            "DELETE, bir kaynağı siler ve idempotenttir; birden çok kez çağrılması aynı sonucu üretir. Week 6 materyalinde (sayfa 19), bu özellik belirtilmiştir.",
+        },
+        {
+          question: "Hangi araç API testinde kullanılır?",
+          options: [
+            "A) FluentValidation",
+            "B) Postman",
+            "C) ModelState",
+            "D) ValidationAttribute",
+            "E) IValidatableObject",
+          ],
+          correct: "B) Postman",
+          explanation:
+            "Postman, API uç noktalarını test etmek için kullanılan bir araçtır. Week 6 materyalinde (sayfa 15), bu araç önerilmiştir.",
+        },
+        {
+          question: "HATEOAS bağlantılarında 'rel' neyi ifade eder?",
+          options: [
+            "A) Bağlantının URI’sini",
+            "B) HTTP metodunu",
+            "C) Bağlantının ilişkisini",
+            "D) Sayfa numarasını",
+            "E) Doğrulama hatasını",
+          ],
+          correct: "C) Bağlantının ilişkisini",
+          explanation:
+            "'rel', bağlantının mevcut kaynakla ilişkisini (örn. 'self', 'update') belirtir. Week 6 materyalinde (sayfa 21), bu yapı örneklendirilmiştir.",
+        },
+        {
+          question: "URI’lerde hangi durumdan kaçınılmalıdır?",
+          options: [
+            "A) Tire kullanımı",
+            "B) Küçük harf kullanımı",
+            "C) Sondaki slaşlar",
+            "D) Çoğul isimler",
+            "E) Hiyerarşik yollar",
+          ],
+          correct: "C) Sondaki slaşlar",
+          explanation:
+            "URI’lerde sondaki slaşlardan kaçınılması önerilir (örn. /products yerine /products/). Week 6 materyalinde (sayfa 17), bu kural belirtilmiştir.",
+        },
+        {
+          question: "Filtreleme ve sıralama birleştirildiğinde ne sağlanır?",
+          options: [
+            "A) Özelleştirilmiş kaynak alt kümeleri",
+            "B) Daha hızlı doğrulama",
+            "C) HTTP metodlarının değişimi",
+            "D) URI hiyerarşisinin sadeleşmesi",
+            "E) Hipermedya bağlantılarının azalması",
+          ],
+          correct: "A) Özelleştirilmiş kaynak alt kümeleri",
+          explanation:
+            "Filtreleme ve sıralama birleştiğinde, istemciler özelleştirilmiş veri alt kümeleri alabilir. Week 6 materyalinde (sayfa 25), bu fayda örneklendirilmiştir.",
+        },
+      ];
 
       let currentModel = modelA;
       let currentQuestionIndex = 0;
@@ -1711,6 +3678,8 @@
           currentModel = modelB;
         } else if ((currentModel = modelSelect === "C")) {
           currentModel = modelC;
+        } else if ((currentModel = modelSelect === "D")) {
+          currentModel = modelD;
         }
 
         resetQuiz();
